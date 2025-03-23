@@ -1,13 +1,14 @@
-import mongoose, { Schema, Types } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
 // definir el esquema de los agentes
 const productSchema = new Schema({
   name: String,
-  price: { type: Types.Decimal128 },
-  url: String,
-  state: String,
+  owner: { type: Schema.Types.ObjectId, ref: 'User'},
+  price: { type: Number },
+  photo: String,
 }, {
-  collection: 'products' // para forzar el nombre de la colección
+  collection: 'products', // para forzar el nombre de la colección
+  versionKey: false // para desactivar el campo '__v'
 })
 
 // crear el modelo

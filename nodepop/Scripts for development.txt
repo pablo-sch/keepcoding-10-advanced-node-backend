@@ -1,0 +1,2 @@
+run initDB: node initDB.js
+run nodemon dev: npx nodemon app.js

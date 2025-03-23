@@ -5,6 +5,9 @@ const userSchema = new Schema({
     name: String,
     email: { type: String, unique: true },
     password: String
+}, {
+    collection: 'users',    // para forzar el nombre de la colección
+    versionKey: false   // para desactivar el campo '__v'
 })
 
 // método del modelo
