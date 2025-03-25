@@ -1,7 +1,6 @@
 export async function index(req, res, next) {
   try {
-    console.log("🚀 Entrando al controlador /login");
-    res.send("Página de login");
+    res.render("login");
   } catch (error) {
     next(error);
   }
