@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-// definir el esquema de los agentes
+// definir el esquema de los productos
 const productSchema = new Schema({
   name: String,
   owner: { type: Schema.Types.ObjectId, ref: 'User'},

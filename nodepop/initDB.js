@@ -16,7 +16,7 @@ async function ask(question) {
         input: process.stdin,
         output: process.stdout
     });
-    
+
     // Usamos una promesa para asegurarnos de que 'result' siempre tiene un valor
     return new Promise((resolve, reject) => {
         rl.question(question, (result) => {
@@ -98,13 +98,18 @@ async function initUsers() {
         { name: chance.name(), email: chance.email(), password: await User.hashPassword('1234') },
         { name: chance.name(), email: chance.email(), password: await User.hashPassword('1234') },
         { name: chance.name(), email: chance.email(), password: await User.hashPassword('1234') },
-        { name: chance.name(), email: chance.email(), password: await User.hashPassword('1234') },
-        { name: chance.name(), email: chance.email(), password: await User.hashPassword('1234') }
     ])
+
     console.log(`Inserted ${insertResult.length} users.`)
+
+    //retorna los usuarios creados
+    return result;
 }
 
 async function initProducts() {
+
+    // Buscar usuarios existentes
+    const users = await User.find();
 
     // delete all products
     const result = await Product.deleteMany()
@@ -112,16 +117,15 @@ async function initProducts() {
 
     // create products
     const insertResult = await Product.insertMany([
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'miUrl/1234', owner: null},
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'miUrl/1234', owner: null},
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'miUrl/1234', owner: null},
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'miUrl/1234', owner: null},
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'miUrl/1234', owner: null},
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'miUrl/1234', owner: null},
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'miUrl/1234', owner: null}
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\cellphone.jpg', owner: users[0]._id },
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\chair.jpg', owner: users[1]._id },
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\chair.jpg', owner: users[2]._id },
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\drawer.jpg', owner: users[3]._id },
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\electric_saw.jpg', owner: users[4]._id },
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\table.jpg', owner: users[5]._id },
     ]);
     console.log(`Inserted ${insertResult.length} products.`)
-    
+
 }
 
 initDB();
