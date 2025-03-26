@@ -1,2 +1,2 @@
 run initDB: node initDB.js
-run nodemon dev: npx nodemon .\bin\www
+run nodemon dev: npm run dev --> npx nodemon .\bin\www

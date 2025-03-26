@@ -117,12 +117,13 @@ async function initProducts() {
 
     // create products
     const insertResult = await Product.insertMany([
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\cellphone.jpg', owner: users[0]._id },
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\chair.jpg', owner: users[1]._id },
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\chair.jpg', owner: users[2]._id },
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\drawer.jpg', owner: users[3]._id },
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\electric_saw.jpg', owner: users[4]._id },
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '\public\images\table.jpg', owner: users[5]._id },
+        //{ name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '/public/images/cellphone.jpg', owner: users[0]._id }, (X)
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'cellphone.jpg', owner: users[0]._id },
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'chair.jpg', owner: users[1]._id },
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'drawer.jpg', owner: users[2]._id },
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'electric_saw.jpg', owner: users[3]._id },
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'monitor.jpg', owner: users[4]._id },
+        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'table.jpg', owner: users[5]._id },
     ]);
     console.log(`Inserted ${insertResult.length} products.`)
 

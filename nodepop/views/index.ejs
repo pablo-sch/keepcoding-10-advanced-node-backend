@@ -1,44 +1,56 @@
 <%- include('header.ejs') %>
 
-  <h2>este es el index</h2>
-  <div class="container mt-4">
-    <div class="row row-cols-3 g-4" id="gallery">
-      <!-- Las imágenes se generarán con JavaScript -->
+  <h2>Home</h2>
+
+  <div class="container mt-3">
+    <div class="row align-items-center">
+        <!-- User Name a la izquierda -->
+        <div class="col-md-6">
+            <span class="fw-bold">User Name</span>
+        </div>
+        
+        <!-- Input de búsqueda a la derecha -->
+        <div class="col-md-6 text-end">
+            <input type="text" class="form-control w-50 d-inline" placeholder="Search...">
+            <button class="btn btn-primary">Search</button>
+        </div>
     </div>
+</div>
+
+<div class="container mt-3">
+  <div class="row text-center">
+      <div class="col-3">
+          <button class="btn btn-success w-100">ADD</button>     <!-- Verde -->
+      </div>
+      <div class="col-3">
+          <button class="btn btn-danger w-100">DELETE</button>   <!-- Rojo -->
+      </div>
+      <div class="col-3">
+          <button class="btn btn-info text-white w-100">ACCEPT</button>   <!-- Celeste -->
+      </div>
+      <div class="col-3">
+          <button class="btn btn-warning w-100">CANCEL</button>  <!-- Naranjo -->
+      </div>
   </div>
+</div>
 
-  <script>
-    const productos = [
-      { nombre: "Producto 1", propietario: "Juan", precio: "$10" },
-      { nombre: "Producto 2", propietario: "Ana", precio: "$20" },
-      { nombre: "Producto 3", propietario: "Carlos", precio: "$15" },
-      { nombre: "Producto 4", propietario: "María", precio: "$25" },
-      { nombre: "Producto 5", propietario: "Pedro", precio: "$30" },
-      { nombre: "Producto 6", propietario: "Sofía", precio: "$12" },
-      { nombre: "Producto 7", propietario: "Luis", precio: "$18" },
-      { nombre: "Producto 8", propietario: "Laura", precio: "$22" },
-      { nombre: "Producto 9", propietario: "Andrés", precio: "$28" },
-      { nombre: "Producto 10", propietario: "Marta", precio: "$35" },
-      { nombre: "Producto 11", propietario: "Ricardo", precio: "$40" },
-      { nombre: "Producto 12", propietario: "Elena", precio: "$50" }
-    ];
+<div class="container mt-5">
+  <h1 class="text-center">Productos</h1>
+  <p><%= products.photo %></p>
 
-    const gallery = document.getElementById("gallery");
-    productos.forEach((producto, index) => {
-      const col = document.createElement("div");
-      col.className = "col";
-      col.innerHTML = `
-            <div class="card">
-                <img src="https://picsum.photos/300?random=${index + 1}" class="card-img-top" alt="${producto.nombre}">
-                <div class="card-body">
-                    <h5 class="card-title">${producto.nombre}</h5>
-                    <p class="card-text">Propietario: ${producto.propietario}</p>
-                    <p class="card-text">Precio: ${producto.precio}</p>
-                </div>
-            </div>
-        `;
-      gallery.appendChild(col);
-    });
-  </script>
+  <div class="row">
+      <% products.forEach(products => { %>
+          <div class="col-md-4 mb-4">
+              <div class="card">
+                  <img src="/images/<%= products.photo %>" class="card-img-top" alt="<%= products.name %>">
+                  <div class="card-body">
+                      <h5 class="card-title"><%= products.name %></h5>
+                      <p class="card-text">Precio: $<%= products.price %></p>
+                  </div>
+              </div>
+          </div>
+      <% }) %>
+  </div>
+</div>
 
   <%- include('footer.ejs') %>
