@@ -1,17 +1,16 @@
 import mongoose, { Schema } from 'mongoose'
 
-// definir el esquema de los productos
+// defining the product scheme
 const productSchema = new Schema({
   name: String,
   owner: { type: Schema.Types.ObjectId, ref: 'User'},
   price: { type: Number },
   photo: String,
 }, {
-  collection: 'products', // para forzar el nombre de la colección
-  versionKey: false // para desactivar el campo '__v'
+  collection: 'products', // to force the name of the collection
+  versionKey: false // to deactivate the field ‘__v’ in MongoDB
 })
 
-// crear el modelo
 const Product = mongoose.model('Product', productSchema)
 
 export default Product

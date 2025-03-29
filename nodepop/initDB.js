@@ -105,6 +105,7 @@ async function initUsers() {
     return result;
 }
 
+//initProducts===============================================================
 async function initProducts() {
 
     const users = await User.find();
@@ -122,8 +123,8 @@ async function initProducts() {
         { name: "Monitor", price: chance.integer({ min: 1, max: 999999 }), photo: 'monitor.jpg', owner: users[4]._id },
         { name: "Table", price: chance.integer({ min: 1, max: 999999 }), photo: 'table.jpg', owner: users[5]._id },
     ]);
-    console.log(`Inserted ${insertResult.length} products.`)
 
+    console.log(`Inserted ${insertResult.length} products.`)
 }
 
 initDB();

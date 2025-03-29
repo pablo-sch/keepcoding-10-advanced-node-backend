@@ -1,4 +1,4 @@
-import session from 'express-session'
+//import session from 'express-session'
 import User from '../../models/User.js'
 
 export function index(req, res, next) {
@@ -28,9 +28,6 @@ export async function postLogin(req, res, next) {
     // the user id found in the database is assigned to the session effected by the LogIn.
 
     req.session.userName = user.name
-
-    console.log(req.session)
-
 
     res.redirect(redir ? redir : '/')
 

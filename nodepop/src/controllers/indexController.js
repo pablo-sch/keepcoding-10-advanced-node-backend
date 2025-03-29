@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import createError from 'http-errors';
 
 import Product from '../../models/Product.js';
 import User from '../../models/User.js'
@@ -49,8 +50,7 @@ export async function deleteProduct(req, res, next) {
     const product = await Product.findOne({ _id: productId, owner: userId });
 
     if (!product) {
-      // If the product does not exist or does not belong to the user, return an error
-      return res.status(404).send('Product not found');
+      return next(createError(404, 'Product not found'));
     }
 
     // If the product has a photo, delete the image from the file system
