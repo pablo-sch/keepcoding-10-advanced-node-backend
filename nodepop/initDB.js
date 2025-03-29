@@ -1,9 +1,9 @@
 import readline from 'readline';
 import mongoose from 'mongoose';
-import connectMongoose from './lib/connectMongoose.js'
 import Chance from 'chance';
 
-//Import models
+import connectMongoose from './lib/connectMongoose.js'
+
 import User from './models/User.js'
 import Product from './models/Product.js'
 //import Tag from './models/Tag.js'
@@ -17,7 +17,7 @@ async function ask(question) {
         output: process.stdout
     });
 
-    // Usamos una promesa para asegurarnos de que 'result' siempre tiene un valor
+    // We use a promise to ensure that 'result' always has a value.
     return new Promise((resolve, reject) => {
         rl.question(question, (result) => {
             rl.close();
@@ -30,35 +30,35 @@ async function ask(question) {
 async function initDB() {
 
     try {
-        // Conectar a MongoDB
+        // Connecting to MongoDB
         const connection = await connectMongoose();
 
-        // Comprobar si la base de datos 'nodepop' existe
+        // Check if the database 'nodepop' exists
         const dbList = await mongoose.connection.db.admin().listDatabases();
         const dbExists = dbList.databases.some(db => db.name === 'nodepop');
 
         if (dbExists) {
-            console.log("La base de datos 'nodepop' ya existe.");
-            const answer = await ask("¿Quieres resetear las colecciones 'users' y 'products'? (yes/no): ")
+            console.log("The 'nodepop' database already exists.");
+            const answer = await ask("Do you want to reset the 'users' and 'products' collections (yes/no): ")
             if (answer.toLowerCase() === 'yes') {
-                console.log("Reseteando las colecciones 'users' y 'products'...");
+                console.log("Resetting the 'users' and 'products' collections...");
 
                 initCollection(0);
 
             } else {
-                console.log("Proceso terminado sin cambios.");
+                console.log("Process completed without changes.");
                 await mongoose.connection.close();
                 rl.close();
                 process.exit(0);
             }
         } else {
-            // Si la base de datos 'nodepop' no existe, se creará automáticamente al insertar datos
-            console.log("La base de datos 'nodepop' no existe. Creando una nueva base de datos...");
+            // If the database ‘nodepop’ does not exist, it will be created automatically when inserting data
+            console.log("The database ‘nodepop’ does not exist. Creating a new database...");
 
             initCollection(1);
         }
     } catch (error) {
-        console.error("Error inicializando la base de datos:", error);
+        console.error("Error initialising the database:", error);
         process.exit(1);
     }
 }
@@ -70,15 +70,15 @@ async function initCollection(value) {
         await initUsers();
         await initProducts();
 
-        // Cerrar la conexión
+        // Closing the connection
         await mongoose.connection.close();
-        console.log("Conexión cerrada.");
+        console.log("Closed connection.");
 
     } catch (error) {
         if (value === 0) {
-            console.error("Error al resetear colecciones:", error);
+            console.error("Error resetting collections:", error);
         } else {
-            console.error("Error al crear colecciones:", error);
+            console.error("Error when creating collections:", error);
         }
     }
 }
@@ -102,28 +102,25 @@ async function initUsers() {
 
     console.log(`Inserted ${insertResult.length} users.`)
 
-    //retorna los usuarios creados
     return result;
 }
 
 async function initProducts() {
 
-    // Buscar usuarios existentes
     const users = await User.find();
 
-    // delete all products
+    // delete all 
     const result = await Product.deleteMany()
     console.log(`Deleted ${result.deletedCount} products.`)
 
-    // create products
     const insertResult = await Product.insertMany([
         //{ name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '/public/images/cellphone.jpg', owner: users[0]._id }, (X)
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'cellphone.jpg', owner: users[0]._id },
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'chair.jpg', owner: users[1]._id },
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'drawer.jpg', owner: users[2]._id },
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'electric_saw.jpg', owner: users[3]._id },
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'monitor.jpg', owner: users[4]._id },
-        { name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: 'table.jpg', owner: users[5]._id },
+        { name: "CellPhone", price: chance.integer({ min: 1, max: 999999 }), photo: 'cellphone.jpg', owner: users[0]._id },
+        { name: "Chair", price: chance.integer({ min: 1, max: 999999 }), photo: 'chair.jpg', owner: users[1]._id },
+        { name: "Drawer", price: chance.integer({ min: 1, max: 999999 }), photo: 'drawer.jpg', owner: users[2]._id },
+        { name: "Electric Saw", price: chance.integer({ min: 1, max: 999999 }), photo: 'electric_saw.jpg', owner: users[3]._id },
+        { name: "Monitor", price: chance.integer({ min: 1, max: 999999 }), photo: 'monitor.jpg', owner: users[4]._id },
+        { name: "Table", price: chance.integer({ min: 1, max: 999999 }), photo: 'table.jpg', owner: users[5]._id },
     ]);
     console.log(`Inserted ${insertResult.length} products.`)
 

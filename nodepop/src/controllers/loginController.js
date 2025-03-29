@@ -1,3 +1,4 @@
+import session from 'express-session'
 import User from '../../models/User.js'
 
 export function index(req, res, next) {
@@ -11,19 +12,25 @@ export async function postLogin(req, res, next) {
     const { email, password } = req.body
     const redir = req.query.redir
 
-    // buscar el usuario en la base de datos
+    // search for the user in the database
     const user = await User.findOne({ email: email })
 
-    // si no lo encuentro, o la contraseña no coincide --> error
+    // if I can't find it, or the password doesn't match --> error
     if (!user || !(await user.comparePassword(password))) {
       res.locals.error = 'Invalid credentials'
-      res.locals.email = email // con esta linea mantendremos la variable email cuando se recarge la pagina en caso de un input erróneo
+      res.locals.email = email // with this line we will keep the email variable when reloading the page in case of a wrong input
       res.render('login')
       return
     }
 
-    // si el usuario existe y la contraseña es buena --> redirect a la home
+    // if the user exists and the password is good --> redirect to the home page
     req.session.userId = user.id
+    // the user id found in the database is assigned to the session effected by the LogIn.
+
+    req.session.userName = user.name
+
+    console.log(req.session)
+
 
     res.redirect(redir ? redir : '/')
 

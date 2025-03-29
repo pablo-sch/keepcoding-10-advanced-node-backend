@@ -1,56 +1,82 @@
 <%- include('header.ejs') %>
 
-  <h2>Home</h2>
+    <h2>Products</h2>
 
-  <div class="container mt-3">
-    <div class="row align-items-center">
-        <!-- User Name a la izquierda -->
-        <div class="col-md-6">
-            <span class="fw-bold">User Name</span>
-        </div>
-        
-        <!-- Input de búsqueda a la derecha -->
-        <div class="col-md-6 text-end">
-            <input type="text" class="form-control w-50 d-inline" placeholder="Search...">
-            <button class="btn btn-primary">Search</button>
+    <% if (!session.userId) { %>
+        <p><a href="/login">Login</a> to access your products</p>
+      <% } else { %>
+    <!-- ============================================================================================================================== -->
+        <div class="container">
+            <form id="productForm" action="/new_product" method="POST" enctype="multipart/form-data">
+                <% // <input type=‘file’>, the browser cannot send the file in application/x-www-form-urlencoded format %>
+                <div class="form-group">
+                <label for="">Product Name</label>
+                <input 
+                  type="text"
+                  name="name" 
+                  class="form-control" 
+                  id="" 
+                  aria-describedby="" 
+                  placeholder="Enter Product Name"
+                >
+              </div>
+              <div class="form-group">
+                <label for="">Price</label>
+                <input 
+                  type="text" 
+                  name="price" 
+                  class="form-control" 
+                  id="" 
+                  placeholder="Price"
+                >
+              </div>
+              <div class="form-group">
+                <input 
+                    type="file" 
+                    name="photo" 
+                    class="form-control-file" 
+                    id="image"
+                    accept="image/*"
+                    required
+                >
+            </div>
+              <button type="submit" class="btn btn-primary" href="/new_product">Submit</button>
+            </form>
+          </div>
+      <% } %>
+    <!-- ============================================================================================================================== -->
+    <div class="container mt-3">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-auto">
+                <p class="fw-bold mb-0">User: <%= session.userName %>
+                </p>
+            </div>
+            <div class="col-auto d-flex">
+                <input type="text" class="form-control me-2" placeholder="Search...">
+                <button class="btn btn-primary">Search</button>
+            </div>
         </div>
     </div>
-</div>
+    <!-- ============================================================================================================================== -->
+    <div class="container mt-5">
+        <div class="row">
+            <% products.forEach(product => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="/images/<%= product.photo %>" class="card-img-top" alt="<%= product.name %>">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= product.name %>
+                            </h5>
+                            <p class="card-text">Price: $<%= product.price %></p>
+                            
+                            <a href="/delete/<%= product._id %>" class="btn btn-danger">
+                                <i class="bi bi-trash3"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
 
-<div class="container mt-3">
-  <div class="row text-center">
-      <div class="col-3">
-          <button class="btn btn-success w-100">ADD</button>     <!-- Verde -->
-      </div>
-      <div class="col-3">
-          <button class="btn btn-danger w-100">DELETE</button>   <!-- Rojo -->
-      </div>
-      <div class="col-3">
-          <button class="btn btn-info text-white w-100">ACCEPT</button>   <!-- Celeste -->
-      </div>
-      <div class="col-3">
-          <button class="btn btn-warning w-100">CANCEL</button>  <!-- Naranjo -->
-      </div>
-  </div>
-</div>
-
-<div class="container mt-5">
-  <h1 class="text-center">Productos</h1>
-  <p><%= products.photo %></p>
-
-  <div class="row">
-      <% products.forEach(products => { %>
-          <div class="col-md-4 mb-4">
-              <div class="card">
-                  <img src="/images/<%= products.photo %>" class="card-img-top" alt="<%= products.name %>">
-                  <div class="card-body">
-                      <h5 class="card-title"><%= products.name %></h5>
-                      <p class="card-text">Precio: $<%= products.price %></p>
-                  </div>
-              </div>
-          </div>
-      <% }) %>
-  </div>
-</div>
-
-  <%- include('footer.ejs') %>
+    <%- include('footer.ejs') %>
