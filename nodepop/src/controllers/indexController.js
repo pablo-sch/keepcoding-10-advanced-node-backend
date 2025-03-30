@@ -8,10 +8,6 @@ import User from '../../models/User.js'
 //Start index Middleware=========================================================
 export async function index(req, res, next) {
   try {
-    if (!req.session.userId) {
-      return next(createError(401, 'User is not authenticated'));
-    }
-
     //res.render(‘index’, { title: ‘Express’ }); // --> The variable ‘title’ in my index.ejs will be called by ‘Express’.
     //res.locals.title = Express // --> same as above
 

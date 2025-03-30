@@ -1,7 +1,7 @@
 //import session from 'express-session'
 import User from '../../models/User.js'
 
-export function index(req, res, next) {
+export function index(req, res) {
   res.locals.error = ''
   res.locals.email = ''
   res.render('login')

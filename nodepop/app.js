@@ -57,7 +57,7 @@ app.use((req, res, next) => { // catch 404 and pass to error handler
   next(createError(404));
 });
 
-app.use((err, req, res, next) => { //handle error
+app.use((err, req, res) => { //handle error
   if (typeof err.array === 'function') { 
     err.message = 'Invalid request: ' + err.array()
       .map(e => `${e.location} ${e.type} "${e.path}" ${e.msg}`).join(', ');

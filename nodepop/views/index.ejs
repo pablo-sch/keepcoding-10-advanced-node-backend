@@ -1,34 +1,12 @@
 <%- include('header.ejs') %>
 
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2>Products</h2>
-        
-            <% if (session.userId) { %>
-                <form action="/search" method="GET" class="search-product">
-                    <div class="row d-flex justify-content-between align-items-center">
-                        <div class="col-auto d-flex">
-                            <input type="text" class="form-control me-2" name="search" placeholder="Search...">
-                            
-                            <select class="form-select me-2" name="tag">
-                                <option value="">Select Tag</option>
-                                <option value="tag1">Work</option>
-                                <option value="tag2">Lifestyle</option>
-                                <option value="tag3">Motor</option>
-                                <option value="tag3">Mobile</option>
-                            </select>
-        
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
-                    </div>
-                </form>
-            <% } %>
-        </div>
+        <h2>Products</h2>
+
         <% if (!session.userId) { %>
             <p><a href="/login">Login</a> to access your products</p>
             <% } else { %>
-                <!-- ============================================================================================================================== -->
-                <div class="add-product form-template">
+                <div class="add-product form-template custom-section">
                     <form id="productForm" action="/new_product" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Product Name</label>
@@ -47,8 +25,32 @@
                     </form>
                 </div>
                 <% } %>
+                <!-- ============================================================================================================================== -->
+
+                <div class="search-product custom-section d-flex justify-content-end">                
+                    <% if (session.userId) { %>
+                        <form action="/search" method="GET" class="search-product">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="col-auto d-flex">
+                                    <input type="text" class="form-control me-2" name="search" placeholder="Search...">
+                                    
+                                    <select class="form-select me-2" name="tag">
+                                        <option value="">Select Tag</option>
+                                        <option value="tag1">Work</option>
+                                        <option value="tag2">Lifestyle</option>
+                                        <option value="tag3">Motor</option>
+                                        <option value="tag4">Mobile</option>
+                                    </select>
+                
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    <% } %>
+                </div>
+                
                     <!-- ============================================================================================================================== -->
-                    <div class="show-products">
+                    <div class="show-products custom-section">
                         <div class="row">
                             <% products.forEach(product=> { %>
                                 <div class="col-md-4 mb-4">

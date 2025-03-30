@@ -13,16 +13,22 @@ a {
   padding: 2px 5px;
 }
 
-.form-template {
+.add-product{
   max-width: 600px;
-  margin-bottom: 30px;
-
 }
 
-.form-template label {
+.custom-section {
+  margin-bottom: 30px;
+}
+
+.custom-section .form-group {
+  margin-bottom: 20px;
+}
+
+.custom-section label {
   font-weight: bold; 
 }
 
-.form-template .form-group {
+/* .form-template .form-group {
   margin-bottom: 20px;
-}
+} */

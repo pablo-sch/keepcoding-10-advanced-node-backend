@@ -17,3 +17,9 @@ To enable and deploy in developer mode run these commands:
 npm run dev
 npx nodemon .\bin\www
 ```
+
+Run ESlint to check the code structure:
+```sh
+npx eslint directory_or_file
+```
+

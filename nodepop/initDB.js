@@ -18,7 +18,7 @@ async function ask(question) {
     });
 
     // We use a promise to ensure that 'result' always has a value.
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         rl.question(question, (result) => {
             rl.close();
             resolve(result);
@@ -31,7 +31,7 @@ async function initDB() {
 
     try {
         // Connecting to MongoDB
-        const connection = await connectMongoose();
+        await connectMongoose();
 
         // Check if the database 'nodepop' exists
         const dbList = await mongoose.connection.db.admin().listDatabases();
@@ -113,7 +113,7 @@ async function initProducts() {
     // delete all 
     const result = await Product.deleteMany()
     console.log(`Deleted ${result.deletedCount} products.`)
-    
+
     /* 
     console.log(users[0])
     console.log(users[0])
