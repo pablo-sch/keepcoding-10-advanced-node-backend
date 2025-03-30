@@ -5,3 +5,24 @@ body {
 a {
   color: #00B7FF;
 }
+
+.app-name {
+  font-weight: bold;
+  font-size: 20px;
+  color: green;
+  padding: 2px 5px;
+}
+
+.form-template {
+  max-width: 600px;
+  margin-bottom: 30px;
+
+}
+
+.form-template label {
+  font-weight: bold; 
+}
+
+.form-template .form-group {
+  margin-bottom: 20px;
+}

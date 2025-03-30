@@ -48,7 +48,6 @@ async function initDB() {
             } else {
                 console.log("Process completed without changes.");
                 await mongoose.connection.close();
-                rl.close();
                 process.exit(0);
             }
         } else {
@@ -92,12 +91,12 @@ async function initUsers() {
 
     // create users
     const insertResult = await User.insertMany([
-        { name: chance.name(), email: chance.email(), password: await User.hashPassword('1234') },
-        { name: chance.name(), email: chance.email(), password: await User.hashPassword('1234') },
-        { name: chance.name(), email: chance.email(), password: await User.hashPassword('1234') },
-        { name: chance.name(), email: chance.email(), password: await User.hashPassword('1234') },
-        { name: chance.name(), email: chance.email(), password: await User.hashPassword('1234') },
-        { name: chance.name(), email: chance.email(), password: await User.hashPassword('1234') },
+        { name: chance.name(), email: "user_n_1@gmail.com", password: await User.hashPassword('1234') },
+        { name: chance.name(), email: "user_n_2@gmail.com", password: await User.hashPassword('1234') },
+        { name: chance.name(), email: "user_n_3@gmail.com", password: await User.hashPassword('1234') },
+        { name: chance.name(), email: "user_n_4@gmail.com", password: await User.hashPassword('1234') },
+        { name: chance.name(), email: "user_n_5@gmail.com", password: await User.hashPassword('1234') },
+        { name: chance.name(), email: "user_n_6@gmail.com", password: await User.hashPassword('1234') }, 
     ])
 
     console.log(`Inserted ${insertResult.length} users.`)
@@ -109,20 +108,29 @@ async function initUsers() {
 async function initProducts() {
 
     const users = await User.find();
+    //console.log(users)
 
     // delete all 
     const result = await Product.deleteMany()
     console.log(`Deleted ${result.deletedCount} products.`)
+    /* 
+    console.log(users[0])
+    console.log(users[0])
 
-    const insertResult = await Product.insertMany([
+    console.log(users[1])
+    console.log(users[1]._id)
+    */
+     const insertResult = await Product.insertMany([
+
         //{ name: chance.animal(), price: chance.integer({ min: 1, max: 999999 }), photo: '/public/images/cellphone.jpg', owner: users[0]._id }, (X)
-        { name: "CellPhone", price: chance.integer({ min: 1, max: 999999 }), photo: 'cellphone.jpg', owner: users[0]._id },
-        { name: "Chair", price: chance.integer({ min: 1, max: 999999 }), photo: 'chair.jpg', owner: users[1]._id },
+        { name: "CellPhone", price: 20000, photo: 'cellphone.jpg', owner: users[0]._id },
+        { name: "Chair", price: 30000, photo: 'chair.jpg', owner: users[1]._id },
         { name: "Drawer", price: chance.integer({ min: 1, max: 999999 }), photo: 'drawer.jpg', owner: users[2]._id },
         { name: "Electric Saw", price: chance.integer({ min: 1, max: 999999 }), photo: 'electric_saw.jpg', owner: users[3]._id },
         { name: "Monitor", price: chance.integer({ min: 1, max: 999999 }), photo: 'monitor.jpg', owner: users[4]._id },
-        { name: "Table", price: chance.integer({ min: 1, max: 999999 }), photo: 'table.jpg', owner: users[5]._id },
-    ]);
+        { name: "Table", price: chance.integer({ min: 1, max: 999999 }), photo: 'table.jpg', owner: users[5]._id }
+        
+    ]); 
 
     console.log(`Inserted ${insertResult.length} products.`)
 }

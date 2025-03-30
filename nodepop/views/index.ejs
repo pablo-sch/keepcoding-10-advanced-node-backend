@@ -1,82 +1,74 @@
 <%- include('header.ejs') %>
 
-    <h2>Products</h2>
-
-    <% if (!session.userId) { %>
-        <p><a href="/login">Login</a> to access your products</p>
-      <% } else { %>
-    <!-- ============================================================================================================================== -->
-        <div class="container">
-            <form id="productForm" action="/new_product" method="POST" enctype="multipart/form-data">
-                <% // <input type=‘file’>, the browser cannot send the file in application/x-www-form-urlencoded format %>
-                <div class="form-group">
-                <label for="">Product Name</label>
-                <input 
-                  type="text"
-                  name="name" 
-                  class="form-control" 
-                  id="" 
-                  aria-describedby="" 
-                  placeholder="Enter Product Name"
-                >
-              </div>
-              <div class="form-group">
-                <label for="">Price</label>
-                <input 
-                  type="text" 
-                  name="price" 
-                  class="form-control" 
-                  id="" 
-                  placeholder="Price"
-                >
-              </div>
-              <div class="form-group">
-                <input 
-                    type="file" 
-                    name="photo" 
-                    class="form-control-file" 
-                    id="image"
-                    accept="image/*"
-                    required
-                >
-            </div>
-              <button type="submit" class="btn btn-primary" href="/new_product">Submit</button>
-            </form>
-          </div>
-      <% } %>
-    <!-- ============================================================================================================================== -->
-    <div class="container mt-3">
-        <div class="row d-flex justify-content-between align-items-center">
-            <div class="col-auto">
-                <p class="fw-bold mb-0">User: <%= session.userName %>
-                </p>
-            </div>
-            <div class="col-auto d-flex">
-                <input type="text" class="form-control me-2" placeholder="Search...">
-                <button class="btn btn-primary">Search</button>
-            </div>
-        </div>
-    </div>
-    <!-- ============================================================================================================================== -->
-    <div class="container mt-5">
-        <div class="row">
-            <% products.forEach(product => { %>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="/images/<%= product.photo %>" class="card-img-top" alt="<%= product.name %>">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <%= product.name %>
-                            </h5>
-                            <p class="card-text">Price: $<%= product.price %></p>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Products</h2>
+        
+            <% if (session.userId) { %>
+                <form action="/search" method="GET" class="search-product">
+                    <div class="row d-flex justify-content-between align-items-center">
+                        <div class="col-auto d-flex">
+                            <input type="text" class="form-control me-2" name="search" placeholder="Search...">
                             
-                            <a href="/delete/<%= product._id %>" class="btn btn-danger">
-                                <i class="bi bi-trash3"></i> Delete
-                            </a>
+                            <select class="form-select me-2" name="tag" disabled>
+                                <option value="">Select Tag</option>
+                                <option value="tag1">Tag 1</option>
+                                <option value="tag2">Tag 2</option>
+                                <option value="tag3">Tag 3</option>
+                            </select>
+        
+                            <button type="submit" class="btn btn-primary">Search</button>
                         </div>
                     </div>
-                </div>
-            <% }) %>
+                </form>
+            <% } %>
         </div>
+        <% if (!session.userId) { %>
+            <p><a href="/login">Login</a> to access your products</p>
+            <% } else { %>
+                <!-- ============================================================================================================================== -->
+                <div class="add-product form-template">
+                    <form id="productForm" action="/new_product" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Product Name</label>
+                            <input type="text" name="name" class="form-control" id="" aria-describedby=""
+                                placeholder="Enter Product Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="text" name="price" class="form-control" id="" placeholder="Price">
+                        </div>
+                        <div class="form-group">
+                            <input type="file" name="photo" class="form-control-file" id="image" accept="image/*"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                </div>
+                <% } %>
+                    <!-- ============================================================================================================================== -->
+                    <div class="show-products">
+                        <div class="row">
+                            <% products.forEach(product=> { %>
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <img src="/images/<%= product.photo %>" class="card-img-top"
+                                            alt="<%= product.name %>">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <%= product.name %>
+                                            </h5>
+                                            <p class="card-text">Price: $<%= product.price %>
+                                            </p>
 
+                                            <a href="/delete/<%= product._id %>" class="btn btn-danger">
+                                                <i class="bi bi-trash3"></i> Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                    </div>
+    </div>
     <%- include('footer.ejs') %>

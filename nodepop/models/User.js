@@ -7,7 +7,7 @@ const userSchema = new Schema({
     email: { type: String, unique: true },
     password: String
 }, {
-    collection: 'products', // to force the name of the collection
+    collection: 'users', // to force the name of the collection
     versionKey: false // to deactivate the field ‘__v’ in MongoDB
 })
 

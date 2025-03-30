@@ -3,8 +3,9 @@
 
 <head>
     <title>
-        <%= appName %>
+        <%= appName || "My App" %>
     </title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,13 +17,13 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
 
-    <link rel="stylesheet" href="/stylesheets/common.css"> <!-- //../public/stylesheets/common.css (X) -->
+    <link rel="stylesheet" href="../stylesheets/common.css"> <!-- //../public/stylesheets/common.css (X) -->
 </head>
 
-<body class="mx-4">
+<body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand app-name" href="/">
                 <%= appName %>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -33,10 +34,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <% if (!session.userId) { %>
-                        <a class="btn btn-success" href="/login">Login</a>
+                        <li class="nav-item">
+                            <a class="btn btn-success" href="/login">Login</a>
+                        </li>
                         <% } else { %>
-                            <a class="btn btn-outline-success" href="/logout">Logout</a>
-                            <% } %>
+                            <li class="nav-item d-flex align-items-center me-3">  
+                                <span class="navbar-text fw-bold">Logged User: <%= session.userName %></span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-danger" href="/logout">Logout</a>
+                            </li>
+                        <% } %>
                 </ul>
             </div>
         </div>
