@@ -113,6 +113,7 @@ async function initProducts() {
     // delete all 
     const result = await Product.deleteMany()
     console.log(`Deleted ${result.deletedCount} products.`)
+    
     /* 
     console.log(users[0])
     console.log(users[0])

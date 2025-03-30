@@ -5,9 +5,12 @@ import createError from 'http-errors';
 import Product from '../../models/Product.js';
 import User from '../../models/User.js'
 
-
+//Start index Middleware=========================================================
 export async function index(req, res, next) {
   try {
+    if (!req.session.userId) {
+      return next(createError(401, 'User is not authenticated'));
+    }
 
     //res.render(‘index’, { title: ‘Express’ }); // --> The variable ‘title’ in my index.ejs will be called by ‘Express’.
     //res.locals.title = Express // --> same as above
@@ -22,12 +25,20 @@ export async function index(req, res, next) {
   }
 }
 
+//postNew Middleware=============================================================
 export async function postNew(req, res, next) {
   try {
     const { name, price } = req.body
     const userId = req.session.userId
     const imagePath = req.file ? req.file.filename : null;
 
+    if (req.file) {
+      // Check if the file is an image
+      const fileType = req.file.mimetype.split('/')[0];
+      if (fileType !== 'image') {
+        return next(createError(400, 'Only image files are allowed.'));
+      }
+    }
     const product = new Product({ name, owner: userId, price, photo: imagePath })
 
     await product.save();
@@ -41,6 +52,7 @@ export async function postNew(req, res, next) {
   }
 }
 
+//deleteProduct Middleware=======================================================
 export async function deleteProduct(req, res, next) {
   try {
     const userId = req.session.userId
@@ -50,7 +62,7 @@ export async function deleteProduct(req, res, next) {
     const product = await Product.findOne({ _id: productId, owner: userId });
 
     if (!product) {
-      return next(createError(404, 'Product not found'));
+      return next(createError(404, `Product with ID ${productId} not found for user ${userId}`));
     }
 
     // If the product has a photo, delete the image from the file system
@@ -62,6 +74,7 @@ export async function deleteProduct(req, res, next) {
       fs.unlink(imagePath, (err) => {
         if (err) {
           console.error('Error when deleting the image:', err);
+          return next(createError(500, 'Error when deleting the image'));
         } else {
           console.log('Image deleted:', imagePath);
         }
