@@ -96,13 +96,13 @@ criterios.
 
 ### Dependencias Clave
 
-express
-eslint
-nodemon
-mongoose
-morgan
-multer
-ejs
+- express
+- eslint
+- nodemon
+- mongoose
+- morgan
+- multer
+- ejs
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -118,13 +118,13 @@ ejs
 
 ### Clonación del Repositorio
 
-> **Poyecto**
+Poyecto
 
 ```bash
 git clone https://github.com/pablo-sch/keepcoding-04-node-backend.git
 ```
 
-> **Demo**
+Demo
 
 ![Demo](https://github.com/pablo-sch/pablo-sch/blob/main/etc/clone-tutorial.gif)
 
