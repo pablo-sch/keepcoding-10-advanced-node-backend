@@ -5,7 +5,7 @@ See the complete list of repositories and descriptions in 📁 [repos-kc-web-18.
 
 ## Select Your Language
 
-- 🇺🇸 [English](README.md)
+- 🇪🇸 [Spanish](README.es.md)
 - 🇩🇪 [German](README.de.md)
 
 <!-- ------------------------------------------------------------------------------------------- -->
