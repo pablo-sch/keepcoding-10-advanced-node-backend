@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 //CommomJS (default) --> ES Modules--------------------------------------------------------------
 
 // 1st Express/Node libraries
@@ -66,29 +67,15 @@ app.get(
 //Handling Errors=============================================================
 // catch 404 and pass to error handler
 app.use((req, res, next) => {
-  next(createError(404));
+  const error = new Error("Not Found");
+  error.status = 404;
+  next(error);
 });
 
 //handle error
-app.use((err, req, res) => {
-  if (typeof err.array === "function") {
-    err.message =
-      "Invalid request: " +
-      err
-        .array()
-        .map((e) => `${e.location} ${e.type} "${e.path}" ${e.msg}`)
-        .join(", ");
-    err.status = 422;
-  }
-
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
-
-  //set local variables, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  //render error page
-  res.render("error"); // my error.ejs file is sent and rendered
+  res.json({ error: err.message });
 });
 
 export default app;

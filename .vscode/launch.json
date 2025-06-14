@@ -17,6 +17,15 @@
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch npm run initBD.js",
+      "program": "${workspaceFolder}/initDB.js",
+      "cwd": "${workspaceFolder}",
+      "skipFiles": ["<node_internals>/**"],
+      "console": "externalTerminal"
     }
   ]
 }
