@@ -3,52 +3,13 @@
 <div class="container">
   <h2>Products</h2>
 
-  <% if (!session.userId) { %>
+  <% if (!user || !user.id) { %>
   <p><a href="/login">Login</a> to access your products</p>
   <% } else { %>
-  <div class="add-product form-template custom-section">
-    <form
-      id="productForm"
-      action="/new_product"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <div class="form-group">
-        <label>Product Name</label>
-        <input
-          type="text"
-          name="name"
-          class="form-control"
-          id=""
-          aria-describedby=""
-          placeholder="Enter Product Name"
-        />
-      </div>
-
-      <div class="form-group">
-        <label>Price</label>
-        <input
-          type="text"
-          name="price"
-          class="form-control"
-          id=""
-          placeholder="Price"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="customFile" class="form-label">Photo</label>
-        <input type="file" name="photo" class="form-control" id="customFile" />
-      </div>
-      <button type="submit" class="btn btn-primary">Add</button>
-    </form>
-  </div>
-  <% } %>
   <!-- ============================================================================================================================== -->
 
   <div class="search-product custom-section d-flex justify-content-end">
-    <% if (session.userId) { %>
-    <form action="/search" method="GET" class="search-product">
+    <form action="/" method="GET" class="search-product">
       <div class="row d-flex justify-content-between align-items-center">
         <div class="col-auto d-flex">
           <input
@@ -66,17 +27,26 @@
             <option value="tag4">Mobile</option>
           </select>
 
+          <div class="form-check align-self-center me-3">
+            <input class="form-check-input" type="checkbox" value="true"
+            id="myPosts" name="myPosts" <%= query.myPosts === "true" ? "checked"
+            : "" %> />
+            <label class="form-check-label" for="myPosts">
+              Show my Posts Only
+            </label>
+          </div>
+
           <button type="submit" class="btn btn-primary">Search</button>
         </div>
       </div>
     </form>
-    <% } %>
   </div>
 
   <!-- ============================================================================================================================== -->
+
   <div class="show-products custom-section">
     <div class="row">
-      <% products.forEach(product=> { %>
+      <% products.forEach(product => { %>
       <div class="col-md-4 mb-4">
         <div class="card">
           <img
@@ -88,14 +58,20 @@
             <h5 class="card-title"><%= product.name %></h5>
             <p class="card-text">Price: $<%= product.price %></p>
             <p class="card-text">Tag: ---</p>
+
+            <% if (user && user.id && product.owner?._id?.toString() ===
+            user.id.toString()) { %>
             <a href="/delete/<%= product._id %>" class="btn btn-danger">
               <i class="bi bi-trash3"></i> Delete
             </a>
+            <% } %>
           </div>
         </div>
       </div>
       <% }) %>
     </div>
   </div>
+  <% } %>
 </div>
+
 <%- include('footer.ejs') %>

@@ -28,7 +28,9 @@
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
-      <p><%= error %></p>
+      <% if (error) { %>
+      <div class="alert alert-danger mt-3"><%= error %></div>
+      <% } %>
     </form>
   </div>
 

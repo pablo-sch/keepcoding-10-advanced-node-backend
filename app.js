@@ -16,7 +16,11 @@ import * as sessionManager from "./lib/sessionManager.js";
 
 import * as indexController from "./src/controllers/indexController.js";
 import * as loginController from "./src/controllers/loginController.js";
-import upload from "./src/middleware/uploadConfigure.js";
+import * as productController from "./src/controllers/productController.js";
+import * as userController from "./src/controllers/userController.js";
+
+import uploadPhotos from "./src/middleware/uploadPhotos.js";
+import uploadAvatars from "./src/middleware/uploadAvatars.js";
 
 //Connect to MongoDB=========================================================
 await connectMongoose();
@@ -49,20 +53,34 @@ app.get("/login", loginController.index);
 app.get("/logout", loginController.logout);
 
 //Index-----------------------------------------------------------------------
-app.get("/", indexController.index);
+app.get("/", indexController.listProducts);
 
 //Product---------------------------------------------------------------------
 app.post(
   "/new_product",
-  upload.single("photo"),
+  uploadPhotos.single("photo"),
   sessionManager.guard,
-  indexController.postNew
+  productController.postNew
 );
+app.get("/new_product", sessionManager.guard, (req, res) => {
+  res.render("product", { session: req.session });
+});
 app.get(
   "/delete/:productId",
   sessionManager.guard,
   indexController.deleteProduct
 );
+
+//User------------------------------------------------------------------------
+app.post(
+  "/new_user",
+  uploadAvatars.single("avatar"),
+  sessionManager.guard,
+  userController.createNew
+);
+app.get("/new_user", sessionManager.guard, (req, res) => {
+  res.render("user", { session: req.session });
+});
 
 //Handling Errors=============================================================
 // catch 404 and pass to error handler

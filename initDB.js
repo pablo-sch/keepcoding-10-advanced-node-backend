@@ -90,44 +90,46 @@ async function initCollection(value) {
 
 //initUsers==================================================================
 async function initUsers() {
-  // delete all users
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
+  const avatarSource = path.join(
+    __dirname,
+    "data",
+    "avatar",
+    "default-avatar.png"
+  );
+  const avatarDestDir = path.join(__dirname, "public", "avatars");
+
+  await fs.mkdir(avatarDestDir, { recursive: true });
+
   const result = await User.deleteMany();
   console.log(`Deleted ${result.deletedCount} users.`);
 
-  // create users
-  const insertResult = await User.insertMany([
-    {
-      name: chance.name(),
-      email: "user_n_1@gmail.com",
-      password: await User.hashPassword("1234"),
-    },
-    {
-      name: chance.name(),
-      email: "user_n_2@gmail.com",
-      password: await User.hashPassword("1234"),
-    },
-    {
-      name: chance.name(),
-      email: "user_n_3@gmail.com",
-      password: await User.hashPassword("1234"),
-    },
-    {
-      name: chance.name(),
-      email: "user_n_4@gmail.com",
-      password: await User.hashPassword("1234"),
-    },
-    {
-      name: chance.name(),
-      email: "user_n_5@gmail.com",
-      password: await User.hashPassword("1234"),
-    },
-    {
-      name: chance.name(),
-      email: "user_n_6@gmail.com",
-      password: await User.hashPassword("1234"),
-    },
-  ]);
+  const usersToInsert = [];
 
+  for (let i = 1; i <= 6; i++) {
+    const ext = path.extname(avatarSource);
+    const avatarFilename = `${Date.now()}-${randomUUID()}${ext}`;
+    const avatarDestPath = path.join(avatarDestDir, avatarFilename);
+
+    try {
+      await fs.copyFile(avatarSource, avatarDestPath);
+      console.log(`Copied default avatar → ${avatarFilename}`);
+    } catch (err) {
+      console.error(`Error copying default avatar:`, err);
+      continue;
+    }
+
+    usersToInsert.push({
+      name: chance.name(),
+      email: `user_n_${i}@gmail.com`,
+      password: await User.hashPassword("1234"),
+      avatar: avatarFilename,
+    });
+  }
+
+  const insertResult = await User.insertMany(usersToInsert);
   console.log(`Inserted ${insertResult.length} users.`);
 
   return result;
