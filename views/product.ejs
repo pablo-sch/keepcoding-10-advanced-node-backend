@@ -3,7 +3,7 @@
 <div class="container">
   <h2>Create Post</h2>
 
-  <% if (user && user.id) { %>
+  <% if (!user && user.id) { %>
   <p><a href="/login">Login</a> to access your products</p>
   <% } else { %>
   <div class="add-product form-template custom-section">
@@ -35,6 +35,16 @@
           placeholder="Price"
         />
       </div>
+
+      <div class="form-group">
+        <label for="tag">Tag</label>
+        <select class="form-select" name="tag" id="tag" required>
+          <option value="">Select Tag</option>
+          <option value="work">Work</option>
+          <option value="lifestyle">Lifestyle</option>
+          <option value="motor">Motor</option>
+          <option value="mobile">Mobile</option>
+        </select>
 
       <div class="form-group">
         <label for="customFile" class="form-label">Photo</label>

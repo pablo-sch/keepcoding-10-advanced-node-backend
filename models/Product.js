@@ -1,11 +1,11 @@
 import mongoose, { Schema } from "mongoose";
 
-// defining the product scheme
 const productSchema = new Schema(
   {
     name: String,
     price: { type: Number },
     photo: String,
+    tag: String,
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
@@ -18,6 +18,19 @@ const productSchema = new Schema(
     versionKey: false, // to deactivate the field ‘__v’ in MongoDB
   }
 );
+
+productSchema.statics.list = async function (filter, limit, skip, sort) {
+  const [products, total] = await Promise.all([
+    this.find(filter)
+      .populate("owner", "name")
+      .limit(limit)
+      .skip(skip)
+      .sort(sort),
+    this.countDocuments(filter),
+  ]);
+
+  return { products, total };
+};
 
 const Product = mongoose.model("Product", productSchema);
 

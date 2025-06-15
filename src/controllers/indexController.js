@@ -14,19 +14,54 @@ import Product from "../../models/Product.js";
 //List All Products==============================================================
 export async function listProducts(req, res, next) {
   try {
-    //res.render(‘index’, { title: ‘Express’ }); // --> The variable ‘title’ in my index.ejs will be called by ‘Express’.
-    //res.locals.title = Express // --> same as above
+    //Pagination of Posts--------------------------------------------------------
+    const limit = parseInt(req.query.limit) || 6;
+    const skip = parseInt(req.query.skip) || 0;
+    const sort = /* req.query.sort || */ "name";
+    const tag = req.query.tag || "";
+    const search = req.query.search || "";
+    const myPosts = req.query.myPosts === "true";
 
-    if (req.query.myPosts === "true" && req.session.user.id) {
-      return listUserProducts(req, res, next);
+    const filter = {};
+
+    //checkbox show only post of logged in User----------------------------------
+    if (myPosts && req.session.user) {
+      filter.owner = req.session.user.id;
     }
 
-    //const userId = req.session.userId;
-    const products = await Product.find().populate("owner", "name");
+    //Filter by name (case-insensitive)------------------------------------------
+    if (search) {
+      filter.name = { $regex: req.query.search, $options: "i" };
+    }
+
+    //Filter by Tag--------------------------------------------------------------
+    if (tag) {
+      filter.tag = tag;
+    }
+
+    const { products, total } = await Product.list(filter, limit, skip, sort);
+
+    //Manual Query Construction--------------------------------------------------
+    const queryParams = [];
+
+    if (req.query.search)
+      queryParams.push(`search=${encodeURIComponent(req.query.search)}`);
+    if (req.query.tag)
+      queryParams.push(`tag=${encodeURIComponent(req.query.tag)}`);
+    if (req.query.myPosts === "true") queryParams.push(`myPosts=true`);
+
+    const baseQuery = queryParams.join("&");
 
     res.render("index", {
       products,
+
+      // VVV To keep selected values
       query: req.query,
+      user: req.session.user,
+      limit,
+      skip,
+      totalProducts: total,
+      baseQuery,
     });
   } catch (error) {
     next(error);
@@ -34,6 +69,7 @@ export async function listProducts(req, res, next) {
 }
 
 //List Logged User Products Only================================================
+/* 
 export async function listUserProducts(req, res, next) {
   try {
     const userId = req.session.user.id;
@@ -47,7 +83,7 @@ export async function listUserProducts(req, res, next) {
   } catch (error) {
     next(error);
   }
-}
+} */
 
 //deleteProduct Middleware=======================================================
 export async function deleteProduct(req, res, next) {

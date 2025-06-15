@@ -58,8 +58,8 @@ app.get("/", indexController.listProducts);
 //Product---------------------------------------------------------------------
 app.post(
   "/new_product",
-  uploadPhotos.single("photo"),
   sessionManager.guard,
+  uploadPhotos.single("photo"),
   productController.postNew
 );
 app.get("/new_product", sessionManager.guard, (req, res) => {
@@ -78,7 +78,7 @@ app.post(
   sessionManager.guard,
   userController.createNew
 );
-app.get("/new_user", sessionManager.guard, (req, res) => {
+app.get("/new_user", (req, res) => {
   res.render("user", { session: req.session });
 });
 

@@ -44,17 +44,20 @@
             <% } %>
           </div>
 
-          <% if (user && user.id) { %>
-          <img
-            src="<%= user.avatar && user.avatar.trim() !== '' ? '/avatars/' + user.avatar : '/images/placeholder/placeholder-image.jpg' %>"
-            alt="Avatar"
-            class="rounded-circle"
-            style="height: 32px; width: 32px; object-fit: cover"
-          />
-          <% } %>
-
-          <div class="d-flex">
-            <% if (!user || !user.id) { %>
+          <div class="d-flex align-items-center">
+            <% if (user && user.id) { %>
+            <img
+              src="<%= user.avatar && user.avatar.trim() !== '' ? '/avatars/' + user.avatar : '/images/placeholder/placeholder-image.jpg' %>"
+              alt="Avatar"
+              class="rounded-circle me-2"
+              style="
+                height: 32px;
+                width: 32px;
+                object-fit: cover;
+                background-color: #9b9b9b;
+              "
+            />
+            <% } %> <% if (!user || !user.id) { %>
             <a class="btn btn-outline-primary me-2" href="/new_user"
               >Create Account</a
             >

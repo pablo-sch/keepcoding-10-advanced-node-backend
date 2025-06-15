@@ -17,9 +17,6 @@ export async function createNew(req, res, next) {
 
     await user.save();
 
-    /* req.session.user.id = user._id;
-    req.session.userName = user.name; */
-
     req.session.user = {
       id: user._id,
       name: user.name,

@@ -3,15 +3,17 @@ import Product from "../../models/Product.js";
 //postNew Middleware=============================================================
 export async function postNew(req, res, next) {
   try {
-    const { name, price } = req.body;
+    const { name, price, tag } = req.body;
     const userId = req.session.user.id;
-    //const imagePath = req.file ? req.file.filename : null;
+
+    const photoFilename = req.file?.filename || "placeholder-image.jpg";
 
     const product = new Product({
       name,
       owner: userId,
       price,
-      photo: req.file.filename,
+      tag,
+      photo: photoFilename,
     });
 
     await product.save();

@@ -6,6 +6,7 @@
   <% if (!user || !user.id) { %>
   <p><a href="/login">Login</a> to access your products</p>
   <% } else { %>
+
   <!-- ============================================================================================================================== -->
 
   <div class="search-product custom-section d-flex justify-content-end">
@@ -17,14 +18,15 @@
             class="form-control me-2"
             name="search"
             placeholder="Search..."
+            value="<%= query.search || '' %>"
           />
 
           <select class="form-select me-2" name="tag">
             <option value="">Select Tag</option>
-            <option value="tag1">Work</option>
-            <option value="tag2">Lifestyle</option>
-            <option value="tag3">Motor</option>
-            <option value="tag4">Mobile</option>
+            <option value="work" <%= query.tag === 'tag1' ? 'selected' : '' %>>Work</option>
+            <option value="lifestyle" <%= query.tag === 'tag2' ? 'selected' : '' %>>Lifestyle</option>
+            <option value="motor" <%= query.tag === 'tag3' ? 'selected' : '' %>>Motor</option>
+            <option value="mobile" <%= query.tag === 'tag4' ? 'selected' : '' %>>Mobile</option>
           </select>
 
           <div class="form-check align-self-center me-3">
@@ -32,7 +34,7 @@
             id="myPosts" name="myPosts" <%= query.myPosts === "true" ? "checked"
             : "" %> />
             <label class="form-check-label" for="myPosts">
-              Show my Posts Only
+              My Posts
             </label>
           </div>
 
@@ -43,21 +45,32 @@
   </div>
 
   <!-- ============================================================================================================================== -->
+  <% 
+    const currentPage = Math.floor(skip / limit) + 1;
+    const totalPages = Math.ceil(totalProducts / limit);
+  %>
+
+  <%- include('pagination.ejs', { baseQuery, skip, limit, totalProducts, currentPage }) %>
+  <!-- ============================================================================================================================== -->
 
   <div class="show-products custom-section">
     <div class="row">
       <% products.forEach(product => { %>
       <div class="col-md-4 mb-4">
         <div class="card">
+          <% 
+            const isPlaceholder = product.photo === 'placeholder-image.jpg';
+            const photoSrc = isPlaceholder ? '/images/placeholder/placeholder-image.jpg' : '/photos/' + product.photo;
+          %>
           <img
-            src="/photos/<%= product.photo %>"
+            src="<%= photoSrc %>"
             class="card-img-top"
             alt="<%= product.name %>"
           />
           <div class="card-body">
             <h5 class="card-title"><%= product.name %></h5>
             <p class="card-text">Price: $<%= product.price %></p>
-            <p class="card-text">Tag: ---</p>
+            <p class="card-text">Tag: <%= product.tag %></p>
 
             <% if (user && user.id && product.owner?._id?.toString() ===
             user.id.toString()) { %>
@@ -71,6 +84,10 @@
       <% }) %>
     </div>
   </div>
+
+
+  <%- include('pagination.ejs', { baseQuery, skip, limit, totalProducts, currentPage }) %>
+
   <% } %>
 </div>
 
