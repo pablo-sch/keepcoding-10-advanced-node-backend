@@ -45,9 +45,7 @@ async function initDB() {
 
     if (dbExists) {
       console.log("The 'nodepop' database already exists.");
-      const answer = await ask(
-        "Do you want to reset the 'users' and 'products' collections (yes/no): "
-      );
+      const answer = await ask("Do you want to reset the 'users' and 'products' collections (yes/no): ");
       if (answer.toLowerCase() === "yes") {
         console.log("Resetting the 'users' and 'products' collections...");
 
@@ -59,9 +57,7 @@ async function initDB() {
       }
     } else {
       // If the database ‘nodepop’ does not exist, it will be created automatically when inserting data
-      console.log(
-        "The database ‘nodepop’ does not exist. Creating a new database..."
-      );
+      console.log("The database ‘nodepop’ does not exist. Creating a new database...");
 
       initCollection(1);
     }
@@ -94,12 +90,7 @@ async function initUsers() {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
 
-  const avatarSource = path.join(
-    __dirname,
-    "data",
-    "avatar",
-    "default-avatar.png"
-  );
+  const avatarSource = path.join(__dirname, "data", "avatar", "default-avatar.png");
   const avatarDestDir = path.join(__dirname, "public", "avatars");
 
   await fs.mkdir(avatarDestDir, { recursive: true });
@@ -156,37 +147,43 @@ async function initProducts() {
       name: "CellPhone",
       price: 20000,
       photo: "cellphone.jpg",
+      tag: "mobile",
       owner: users[0]._id,
     },
-    { name: "Chair", price: 30000, photo: "chair.jpg", owner: users[1]._id },
+    { name: "Chair", price: 30000, photo: "chair.jpg", tag: "lifestyle", owner: users[1]._id },
     {
       name: "Drawer",
       price: chance.integer({ min: 1, max: 999999 }),
       photo: "drawer.jpg",
+      tag: "lifestyle",
       owner: users[2]._id,
     },
     {
       name: "Electric Saw",
       price: chance.integer({ min: 1, max: 999999 }),
       photo: "electric_saw.jpg",
+      tag: "motor",
       owner: users[3]._id,
     },
     {
       name: "Monitor",
       price: chance.integer({ min: 1, max: 999999 }),
       photo: "monitor.jpg",
+      tag: "work",
       owner: users[4]._id,
     },
     {
       name: "Table",
       price: chance.integer({ min: 1, max: 999999 }),
       photo: "table.jpg",
+      tag: "lifestyle",
       owner: users[5]._id,
     },
   ];
 
   const productsToInsert = [];
 
+  //Rename Product Images amd Push-----------------------------
   for (const template of productTemplates) {
     const srcPath = path.join(sourceDir, template.photo);
 
@@ -201,16 +198,17 @@ async function initProducts() {
       console.log(`Copied ${template.photo} → ${newFileName}`);
     } catch (err) {
       console.error(`Error copying ${template.photo}:`, err);
-      continue; // skip this product
+      continue;
     }
-
     productsToInsert.push({
       name: template.name,
       price: template.price,
-      photo: newFileName, // Save new name
+      photo: newFileName,
+      tag: template.tag,
       owner: template.owner,
     });
   }
+  //-----------------------------------------------------------
 
   const insertResult = await Product.insertMany(productsToInsert);
   console.log(`Inserted ${insertResult.length} products.`);

@@ -26,55 +26,86 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid flex-column">
-        <!-- Primera fila: App name y botones -->
         <div class="d-flex w-100 justify-content-between align-items-center">
+          <!-- -------------------------------------------------------------------- -->
+
           <div class="d-flex align-items-center">
             <a href="/" class="d-flex align-items-center text-decoration-none">
-              <img
-                src="/images/icon/icon.png"
-                alt="Logo"
-                style="height: 30px; width: 30px"
-                class="me-2"
-              />
+              <img src="/images/icon/icon.png" alt="Logo" style="height: 30px; width: 30px" class="me-2" />
               <span class="navbar-brand app-name mb-0"><%= appName %></span>
             </a>
 
             <% if (user && user.id) { %>
-            <a class="btn btn-primary ms-3" href="/new_product">Create Post</a>
+            <a class="btn btn-primary ms-3" href="/new_product"><%= __('Create Post') %></a>
             <% } %>
           </div>
+          <!-- -------------------------------------------------------------------- -->
 
           <div class="d-flex align-items-center">
-            <% if (user && user.id) { %>
-            <img
-              src="<%= user.avatar && user.avatar.trim() !== '' ? '/avatars/' + user.avatar : '/images/placeholder/placeholder-image.jpg' %>"
-              alt="Avatar"
-              class="rounded-circle me-2"
-              style="
-                height: 32px;
-                width: 32px;
-                object-fit: cover;
-                background-color: #9b9b9b;
-              "
-            />
-            <% } %> <% if (!user || !user.id) { %>
-            <a class="btn btn-outline-primary me-2" href="/new_user"
-              >Create Account</a
-            >
-            <a class="btn btn-success" href="/login">Login</a>
+            <div class="dropdown me-3">
+              <button
+                class="btn btn-outline-secondary dropdown-toggle btn-sm"
+                type="button"
+                id="localeDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <%= __('Language') %>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="localeDropdown">
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="/change-locale/en">
+                    <img src="/images/icon/en.png" alt="EN" style="width: 20px; height: 14px" class="me-2" />
+                    EN
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="/change-locale/es">
+                    <img src="/images/icon/es.png" alt="ES" style="width: 20px; height: 14px" class="me-2" />
+                    ES
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <% if (!user || !user.id) { %>
+            <a class="btn btn-outline-primary me-2" href="/new_user"><%= __('Create Account') %></a>
+            <a class="btn btn-success" href="/login"><%= __('Login') %></a>
             <% } else { %>
-            <a class="btn btn-outline-danger" href="/logout">Logout</a>
+            <a class="btn btn-outline-danger" href="/logout"><%= __('Logout') %></a>
             <% } %>
           </div>
+          <!-- -------------------------------------------------------------------- -->
         </div>
-
-        <!-- Segunda fila: Logged user -->
         <% if (user && user.name) { %>
-        <div class="w-100 mt-2 ps-2">
-          <span class="navbar-text fw-bold">Logged User: <%= user.name %></span>
+        <div class="w-100 mt-2 ps-2 d-flex align-items-center" style="background-color: #d0d0d0; padding: 0.5rem">
+          <span class="navbar-text fw-bold me-2"><%= __('Logged User')%>:</span>
+          <img
+            src="<%= user.avatar && user.avatar.trim() !== '' ? '/avatars/' + user.avatar : '/images/placeholder/placeholder-image.jpg' %>"
+            alt="Avatar"
+            class="rounded-circle me-2"
+            style="height: 32px; width: 32px; object-fit: cover; background-color: #9b9b9b"
+          />
+          <span class="fw-bold"><%= user.name %></span>
         </div>
         <% } %>
       </div>
     </nav>
+
+    <!-- ============================================================================================== -->
+    <!-- Por alguna razón Boostrap no logra abrir el DropDown de Lenguajes. Con el el siguiente Scrip se arregla -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const trigger = document.getElementById("localeDropdown");
+
+        trigger.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const instance = bootstrap.Dropdown.getInstance(trigger) || new bootstrap.Dropdown(trigger);
+          instance.toggle();
+        });
+      });
+    </script>
+    <!-- ============================================================================================== -->
   </body>
 </html>

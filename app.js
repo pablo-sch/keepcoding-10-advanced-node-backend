@@ -15,6 +15,9 @@ import logger from "morgan";
 import connectMongoose from "./lib/connectMongoose.js";
 import * as sessionManager from "./lib/sessionManager.js";
 
+import i18n from "./lib/i18nConfigure.js";
+import * as localeController from "./src/controllers/localeController.js";
+
 import * as indexController from "./src/controllers/indexController.js";
 import * as loginController from "./src/controllers/loginController.js";
 import * as productController from "./src/controllers/productController.js";
@@ -43,10 +46,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(import.meta.dirname, "public")));
 
 //My Application Routes=======================================================
+//Cookie Parser---------------------------------------------------------------
+app.use(cookieParser());
 
 //sessionManager--------------------------------------------------------------
 app.use(sessionManager.middleware);
 app.use(sessionManager.useSessionInViews);
+
+//i18n------------------------------------------------------------------------
+app.use(i18n.init);
+app.get("/change-locale/:locale", localeController.changeLocale);
 
 //Login-----------------------------------------------------------------------
 app.post("/login", loginController.postLogin);
@@ -57,28 +66,14 @@ app.get("/logout", loginController.logout);
 app.get("/", indexController.listProducts);
 
 //Product---------------------------------------------------------------------
-app.post(
-  "/new_product",
-  sessionManager.guard,
-  uploadPhotos.single("photo"),
-  productController.postNew
-);
+app.post("/new_product", sessionManager.guard, uploadPhotos.single("photo"), productController.postNew);
 app.get("/new_product", sessionManager.guard, (req, res) => {
   res.render("product", { session: req.session });
 });
-app.get(
-  "/delete/:productId",
-  sessionManager.guard,
-  indexController.deleteProduct
-);
+app.get("/delete/:productId", sessionManager.guard, indexController.deleteProduct);
 
 //User------------------------------------------------------------------------
-app.post(
-  "/new_user",
-  uploadAvatars.single("avatar"),
-  sessionManager.guard,
-  userController.createNew
-);
+app.post("/new_user", uploadAvatars.single("avatar"), sessionManager.guard, userController.createNew);
 app.get("/new_user", (req, res) => {
   res.render("user", { session: req.session });
 });
