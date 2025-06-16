@@ -5,6 +5,7 @@
 import createError from "http-errors";
 import express from "express";
 import path from "path";
+import "dotenv/config";
 
 // 2nd Third-party libraries
 import cookieParser from "cookie-parser";

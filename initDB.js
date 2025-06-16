@@ -2,6 +2,7 @@
 import readline from "readline";
 import mongoose from "mongoose";
 import Chance from "chance";
+import "dotenv/config";
 
 import connectMongoose from "./lib/connectMongoose.js";
 
