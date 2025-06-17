@@ -32,5 +32,6 @@
   "Tag": "Etiqueta",
   "Work": "Trabajo",
   "Language": "Lenguaje",
+  "API Doc": "API Doc",
   "login_message": "<a href='/login'>Inicia sesión</a> o <a href='/new_user'>crea una cuenta</a> para acceder a los productos."
 }

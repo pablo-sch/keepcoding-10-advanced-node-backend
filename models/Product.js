@@ -19,13 +19,9 @@ const productSchema = new Schema(
   }
 );
 
-productSchema.statics.list = async function (filter, limit, skip, sort) {
+productSchema.statics.list = async function (filter, limit, skip, sort, fields) {
   const [products, total] = await Promise.all([
-    this.find(filter)
-      .populate("owner", "name")
-      .limit(limit)
-      .skip(skip)
-      .sort(sort),
+    this.find(filter).populate("owner", "name").limit(limit).skip(skip).sort(sort).select(fields),
     this.countDocuments(filter),
   ]);
 

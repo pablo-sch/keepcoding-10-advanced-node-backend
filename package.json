@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "cross-env PORT=3000 NODEAPP_ENV=development nodemon ./bin/www",
-    "start": "cross-env NODEAPP_ENV=production node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "start": "node ./bin/www",
     "initDB": "node initDB.js"
   },
   "author": "Pablo Abaroa-Schilling",
@@ -25,7 +25,9 @@
     "i18n": "^0.15.1",
     "mongoose": "^8.12.2",
     "morgan": "^1.10.0",
-    "multer": "^2.0.1"
+    "multer": "^2.0.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "globals": "^16.0.0",

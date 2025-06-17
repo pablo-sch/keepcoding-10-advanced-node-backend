@@ -16,15 +16,20 @@ import connectMongoose from "./lib/connectMongoose.js";
 import * as sessionManager from "./lib/sessionManager.js";
 
 import i18n from "./lib/i18nConfigure.js";
-import * as localeController from "./src/controllers/localeController.js";
+import swaggerMiddleware from "./lib/swaggerMiddleware.js";
 
-import * as indexController from "./src/controllers/indexController.js";
+//import * as indexController from "./src/controllers/indexController.js";
 import * as loginController from "./src/controllers/loginController.js";
 import * as productController from "./src/controllers/productController.js";
 import * as userController from "./src/controllers/userController.js";
 
 import uploadPhotos from "./src/middleware/uploadPhotos.js";
 import uploadAvatars from "./src/middleware/uploadAvatars.js";
+
+import * as localeController from "./src/controllers/localeController.js";
+
+//import * as apiProductController from "./src/controllers/api/apiProductController.js";
+//import * as apiLoginController from "./src/controllers/api/apiLoginController.js";
 
 //Connect to MongoDB=========================================================
 await connectMongoose();
@@ -46,31 +51,37 @@ app.use(cookieParser());
 app.use(express.static(path.join(import.meta.dirname, "public")));
 
 //My Application Routes=======================================================
-//Cookie Parser---------------------------------------------------------------
+//API Routes------------------------------------------------------------------
+/* 
+app.get("/api/products", apiProductController.list);
+app.get('/api/products/:productsId', apiProductController.getOne)
+app.post('/api/products', upload.single('avatar'), apiProductController.newProduct)
+ */
+
+//Dependences---------------------------------------------------------------------
 app.use(cookieParser());
+app.use("/api-doc", swaggerMiddleware);
+
+app.use(i18n.init);
+app.get("/change-locale/:locale", localeController.changeLocale);
 
 //sessionManager--------------------------------------------------------------
 app.use(sessionManager.middleware);
 app.use(sessionManager.useSessionInViews);
-
-//i18n------------------------------------------------------------------------
-app.use(i18n.init);
-app.get("/change-locale/:locale", localeController.changeLocale);
 
 //Login-----------------------------------------------------------------------
 app.post("/login", loginController.postLogin);
 app.get("/login", loginController.index);
 app.get("/logout", loginController.logout);
 
-//Index-----------------------------------------------------------------------
-app.get("/", indexController.listProducts);
-
 //Product---------------------------------------------------------------------
-app.post("/new_product", sessionManager.guard, uploadPhotos.single("photo"), productController.postNew);
+app.get("/", productController.listProducts);
 app.get("/new_product", sessionManager.guard, (req, res) => {
   res.render("product", { session: req.session });
 });
-app.get("/delete/:productId", sessionManager.guard, indexController.deleteProduct);
+app.post("/new_product", sessionManager.guard, uploadPhotos.single("photo"), productController.newProduct);
+//app.delete("/api/products/:productId", sessionManager.guard, productController.deleteProduct);
+app.get("/delete/:productId", sessionManager.guard, productController.deleteProduct);
 
 //User------------------------------------------------------------------------
 app.post("/new_user", uploadAvatars.single("avatar"), sessionManager.guard, userController.createNew);
@@ -79,17 +90,46 @@ app.get("/new_user", (req, res) => {
 });
 
 //Handling Errors=============================================================
-// catch 404 and pass to error handler
+// Catch 404 error and pass to handler error----------------------------------
 app.use((req, res, next) => {
   const error = new Error("Not Found");
   error.status = 404;
   next(error);
 });
 
-//handle error
+//Handle Error----------------------------------------------------------------
 app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.json({ error: err.message });
+  //Server Console Response
+  console.error("Error:", err);
+
+  //Set the HTTP status code
+  const statusCode = err.status || 500;
+  res.status(statusCode);
+
+  //Handle validation errors
+  if (err.array) {
+    err.message =
+      "Invalid request: " +
+      err
+        .array()
+        .map((e) => `${e.location} ${e.type} "${e.path}" ${e.msg}`)
+        .join(", ");
+    err.status = 422;
+  }
+
+  //JSON Error Response (for API routes)
+  if (req.originalUrl.startsWith("/api/")) {
+    return res.json({
+      error: err.message || "Unexpected error",
+      status: statusCode,
+    });
+  }
+
+  //.ejs Error View Response
+  res.render("error", {
+    message: err.message,
+    status: err.status || 500,
+  });
 });
 
 export default app;

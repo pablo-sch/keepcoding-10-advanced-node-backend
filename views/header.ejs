@@ -26,20 +26,13 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid flex-column">
-        <div class="d-flex w-100 justify-content-between align-items-center">
-          <!-- -------------------------------------------------------------------- -->
-
+        <div name="first-row-navbar" class="d-flex w-100 justify-content-between align-items-center">
           <div class="d-flex align-items-center">
             <a href="/" class="d-flex align-items-center text-decoration-none">
               <img src="/images/icon/icon.png" alt="Logo" style="height: 30px; width: 30px" class="me-2" />
               <span class="navbar-brand app-name mb-0"><%= appName %></span>
             </a>
-
-            <% if (user && user.id) { %>
-            <a class="btn btn-primary ms-3" href="/new_product"><%= __('Create Post') %></a>
-            <% } %>
           </div>
-          <!-- -------------------------------------------------------------------- -->
 
           <div class="d-flex align-items-center">
             <div class="dropdown me-3">
@@ -67,7 +60,33 @@
                 </li>
               </ul>
             </div>
+            <li class="nav-item list-unstyled me-3">
+              <a class="nav-link" href="/api-doc" target="_blank"><%= __('API Doc') %></a>
+            </li>
+          </div>
+        </div>
 
+        <div
+          name="second-row-navbar"
+          class="w-100 mt-2 ps-2 d-flex justify-content-between align-items-center"
+          style="background-color: #d0d0d0; padding: 0.5rem"
+        >
+          <div class="d-flex align-items-center">
+            <% if (user && user.id) { %>
+            <span class="navbar-text fw-bold me-2"><%= __('Logged User') %>:</span>
+            <% let avatarSrc = '/images/placeholder/placeholder-image.jpg'; %> <% if (user.avatar && user.avatar.trim() !== '') {
+            %> <% avatarSrc = '/avatars/' + user.avatar; %> <% } %>
+            <img
+              src="<%= avatarSrc %>"
+              alt="Avatar"
+              class="rounded-circle me-2"
+              style="height: 32px; width: 32px; object-fit: cover; background-color: #9b9b9b"
+            />
+            <span class="fw-bold"><%= user.name %></span>
+            <% } %>
+          </div>
+
+          <div class="d-flex align-items-center">
             <% if (!user || !user.id) { %>
             <a class="btn btn-outline-primary me-2" href="/new_user"><%= __('Create Account') %></a>
             <a class="btn btn-success" href="/login"><%= __('Login') %></a>
@@ -75,37 +94,20 @@
             <a class="btn btn-outline-danger" href="/logout"><%= __('Logout') %></a>
             <% } %>
           </div>
-          <!-- -------------------------------------------------------------------- -->
         </div>
-        <% if (user && user.name) { %>
-        <div class="w-100 mt-2 ps-2 d-flex align-items-center" style="background-color: #d0d0d0; padding: 0.5rem">
-          <span class="navbar-text fw-bold me-2"><%= __('Logged User')%>:</span>
-          <img
-            src="<%= user.avatar && user.avatar.trim() !== '' ? '/avatars/' + user.avatar : '/images/placeholder/placeholder-image.jpg' %>"
-            alt="Avatar"
-            class="rounded-circle me-2"
-            style="height: 32px; width: 32px; object-fit: cover; background-color: #9b9b9b"
-          />
-          <span class="fw-bold"><%= user.name %></span>
-        </div>
-        <% } %>
       </div>
     </nav>
-
-    <!-- ============================================================================================== -->
-    <!-- Por alguna razón Boostrap no logra abrir el DropDown de Lenguajes. Con el el siguiente Scrip se arregla -->
+    <!-- For some reason Boostrap fails to open the Language DropDown. With the following Scrip it is fixed -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const trigger = document.getElementById("localeDropdown");
-
         trigger.addEventListener("click", function (e) {
           e.preventDefault();
-
           const instance = bootstrap.Dropdown.getInstance(trigger) || new bootstrap.Dropdown(trigger);
           instance.toggle();
         });
       });
     </script>
-    <!-- ============================================================================================== -->
+    <!-- ======================================================================================================= -->
   </body>
 </html>

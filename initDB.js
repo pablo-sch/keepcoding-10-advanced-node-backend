@@ -87,11 +87,8 @@ async function initCollection(value) {
 
 //initUsers==================================================================
 async function initUsers() {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-
-  const avatarSource = path.join(__dirname, "data", "avatar", "default-avatar.png");
-  const avatarDestDir = path.join(__dirname, "public", "avatars");
+  const avatarSource = path.join(import.meta.url, "data", "avatar", "default-avatar.png");
+  const avatarDestDir = path.join(import.meta.url, "public", "avatars");
 
   await fs.mkdir(avatarDestDir, { recursive: true });
 
@@ -129,11 +126,8 @@ async function initUsers() {
 
 //initProducts===============================================================
 async function initProducts() {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-
-  const sourceDir = path.join(__dirname, "data", "images");
-  const destDir = path.join(__dirname, "public", "photos");
+  const sourceDir = path.join(import.meta.url, "data", "images");
+  const destDir = path.join(import.meta.url, "public", "photos");
 
   await fs.mkdir(destDir, { recursive: true });
 
