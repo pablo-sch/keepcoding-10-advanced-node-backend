@@ -6,10 +6,10 @@
   <% if (!user && user.id) { %>
   <p><%- __('login_message') %></p>
   <% } else { %>
-  <div class="add-product form-template custom-section">
+  <div class="add-post form-template custom-section">
     <form
-      id="productForm"
-      action="/new_product"
+      id="postForm"
+      action="/new_post"
       method="POST"
       enctype="multipart/form-data"
     >
@@ -21,7 +21,7 @@
           class="form-control"
           id=""
           aria-describedby=""
-          placeholder="<%= __('Enter Product Name')%>"
+          placeholder="<%= __('Enter post Name')%>"
         />
       </div>
 
@@ -32,7 +32,7 @@
           name="price"
           class="form-control"
           id=""
-          placeholder="<%= __('Enter Product Price')%>"
+          placeholder="<%= __('Enter post Price')%>"
         />
       </div>
 
@@ -47,10 +47,10 @@
         </select>
 
       <div class="form-group">
-        <label for="customFile" class="form-label"><%= __('Product Photo')%></label>
+        <label for="customFile" class="form-label"><%= __('post Photo')%></label>
         <input type="file" name="photo" class="form-control" id="customFile" />
       </div>
-      <button type="submit" class="btn btn-primary"><%= __('Add Product')%></button>
+      <button type="submit" class="btn btn-primary"><%= __('Add post')%></button>
     </form>
   </div>
   <% } %>

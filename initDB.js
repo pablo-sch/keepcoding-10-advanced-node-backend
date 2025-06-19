@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import readline from "readline";
 import mongoose from "mongoose";
 import Chance from "chance";
@@ -7,7 +6,7 @@ import "dotenv/config";
 import connectMongoose from "./lib/connectMongoose.js";
 
 import User from "./models/User.js";
-import Product from "./models/Product.js";
+import Post from "./models/Post.js";
 //import Tag from './models/Tag.js'
 
 import fs from "node:fs/promises";
@@ -45,9 +44,9 @@ async function initDB() {
 
     if (dbExists) {
       console.log("The 'nodepop' database already exists.");
-      const answer = await ask("Do you want to reset the 'users' and 'products' collections (yes/no): ");
+      const answer = await ask("Do you want to reset the 'users' and 'posts' collections (yes/no): ");
       if (answer.toLowerCase() === "yes") {
-        console.log("Resetting the 'users' and 'products' collections...");
+        console.log("Resetting the 'users' and 'posts' collections...");
 
         initCollection(0);
       } else {
@@ -71,7 +70,7 @@ async function initDB() {
 async function initCollection(value) {
   try {
     await initUsers();
-    await initProducts();
+    await initposts();
 
     // Closing the connection
     await mongoose.connection.close();
@@ -87,10 +86,26 @@ async function initCollection(value) {
 
 //initUsers==================================================================
 async function initUsers() {
-  const avatarSource = path.join(import.meta.url, "data", "avatar", "default-avatar.png");
-  const avatarDestDir = path.join(import.meta.url, "public", "avatars");
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
+  const avatarSource = path.join(__dirname, "data", "avatar", "default-avatar.png");
+  const avatarDestDir = path.join(__dirname, "public", "avatars");
+
+  /* const avatarSource = path.join(import.meta.url, "data", "avatar", "default-avatar.png");
+  const avatarDestDir = path.join(import.meta.url, "public", "avatars"); */
 
   await fs.mkdir(avatarDestDir, { recursive: true });
+
+  try {
+    const avatarFiles = await fs.readdir(avatarDestDir);
+    for (const file of avatarFiles) {
+      await fs.unlink(path.join(avatarDestDir, file));
+    }
+    console.log("Cleaned old avatars in public/avatars/");
+  } catch (err) {
+    console.error("Error cleaning avatars directory:", err);
+  }
 
   const result = await User.deleteMany();
   console.log(`Deleted ${result.deletedCount} users.`);
@@ -118,25 +133,45 @@ async function initUsers() {
     });
   }
 
+  if (usersToInsert.length === 0) {
+    throw new Error("No users inserted: failed to copy avatars.");
+  }
+
   const insertResult = await User.insertMany(usersToInsert);
   console.log(`Inserted ${insertResult.length} users.`);
 
   return result;
 }
 
-//initProducts===============================================================
-async function initProducts() {
-  const sourceDir = path.join(import.meta.url, "data", "images");
-  const destDir = path.join(import.meta.url, "public", "photos");
+//initposts===============================================================
+async function initposts() {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
 
-  await fs.mkdir(destDir, { recursive: true });
+  const photoSource = path.join(__dirname, "data", "images");
+  const photoDestDir = path.join(__dirname, "public", "photos");
+
+  /* const photoSource = path.join(import.meta.url, "data", "images");
+  const photoDestDir = path.join(import.meta.url, "public", "photos"); */
+
+  await fs.mkdir(photoDestDir, { recursive: true });
+
+  try {
+    const files = await fs.readdir(photoDestDir);
+    for (const file of files) {
+      await fs.unlink(path.join(photoDestDir, file));
+    }
+    console.log("Cleaned old photos in public/photos/");
+  } catch (err) {
+    console.error("Error cleaning photos directory:", err);
+  }
 
   const users = await User.find();
 
-  const result = await Product.deleteMany();
-  console.log(`Deleted ${result.deletedCount} products.`);
+  const result = await Post.deleteMany();
+  console.log(`Deleted ${result.deletedCount} posts.`);
 
-  const productTemplates = [
+  const postTemplates = [
     {
       name: "CellPhone",
       price: 20000,
@@ -175,17 +210,17 @@ async function initProducts() {
     },
   ];
 
-  const productsToInsert = [];
+  const postsToInsert = [];
 
-  //Rename Product Images amd Push-----------------------------
-  for (const template of productTemplates) {
-    const srcPath = path.join(sourceDir, template.photo);
+  //Rename post Images amd Push-----------------------------
+  for (const template of postTemplates) {
+    const srcPath = path.join(photoSource, template.photo);
 
     const timestamp = Date.now();
     const id = randomUUID();
     const ext = path.extname(template.photo);
     const newFileName = `${timestamp}-${id}${ext}`;
-    const destPath = path.join(destDir, newFileName);
+    const destPath = path.join(photoDestDir, newFileName);
 
     try {
       await fs.copyFile(srcPath, destPath);
@@ -194,7 +229,7 @@ async function initProducts() {
       console.error(`Error copying ${template.photo}:`, err);
       continue;
     }
-    productsToInsert.push({
+    postsToInsert.push({
       name: template.name,
       price: template.price,
       photo: newFileName,
@@ -204,8 +239,8 @@ async function initProducts() {
   }
   //-----------------------------------------------------------
 
-  const insertResult = await Product.insertMany(productsToInsert);
-  console.log(`Inserted ${insertResult.length} products.`);
+  const insertResult = await Post.insertMany(postsToInsert);
+  console.log(`Inserted ${insertResult.length} posts.`);
 }
 
 initDB();

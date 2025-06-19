@@ -21,12 +21,18 @@
     ></script>
 
     <link rel="stylesheet" href="../stylesheets/common.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" /> -->
   </head>
-
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid flex-column">
-        <div name="first-row-navbar" class="d-flex w-100 justify-content-between align-items-center">
+        <!-- first-row----------------------------------------------------------------------------- -->
+        <div
+          name="first-row-navbar"
+          class="d-flex w-100 justify-content-between align-items-center"
+          style="background-color: #a8a8a8; padding: 0.5rem"
+        >
+          <!-- logo-------------------------- -->
           <div class="d-flex align-items-center">
             <a href="/" class="d-flex align-items-center text-decoration-none">
               <img src="/images/icon/icon.png" alt="Logo" style="height: 30px; width: 30px" class="me-2" />
@@ -35,6 +41,17 @@
           </div>
 
           <div class="d-flex align-items-center">
+            <!-- loggin-loggout-&-create-user-- -->
+            <div class="d-flex align-items-center">
+              <% if (user && user.id) { %>
+              <a class="btn btn-outline-danger" href="/logout"><%= __('Logout') %></a>
+              <% } else { %>
+              <a class="btn btn-success" href="/login"><%= __('Login') %></a>
+              <a class="btn btn-outline-primary me-2" href="/new_user"><%= __('Create Account') %></a>
+              <% } %>
+            </div>
+
+            <!-- drop-down-languagues-swagger-- -->
             <div class="dropdown me-3">
               <button
                 class="btn btn-outline-secondary dropdown-toggle btn-sm"
@@ -65,17 +82,20 @@
             </li>
           </div>
         </div>
-
+        <!-- second-row---------------------------------------------------------------------------- -->
         <div
           name="second-row-navbar"
           class="w-100 mt-2 ps-2 d-flex justify-content-between align-items-center"
           style="background-color: #d0d0d0; padding: 0.5rem"
         >
+          <!-- logged-user-info-------------- -->
+          <% if (user && user.id) { %>
           <div class="d-flex align-items-center">
-            <% if (user && user.id) { %>
             <span class="navbar-text fw-bold me-2"><%= __('Logged User') %>:</span>
-            <% let avatarSrc = '/images/placeholder/placeholder-image.jpg'; %> <% if (user.avatar && user.avatar.trim() !== '') {
-            %> <% avatarSrc = '/avatars/' + user.avatar; %> <% } %>
+
+            <% let avatarSrc = '/images/placeholder/placeholder-image.jpg'; if (user.avatar && user.avatar.trim() !== '') {
+            avatarSrc = '/avatars/' + user.avatar; } %>
+
             <img
               src="<%= avatarSrc %>"
               alt="Avatar"
@@ -83,17 +103,13 @@
               style="height: 32px; width: 32px; object-fit: cover; background-color: #9b9b9b"
             />
             <span class="fw-bold"><%= user.name %></span>
-            <% } %>
           </div>
-
           <div class="d-flex align-items-center">
-            <% if (!user || !user.id) { %>
-            <a class="btn btn-outline-primary me-2" href="/new_user"><%= __('Create Account') %></a>
-            <a class="btn btn-success" href="/login"><%= __('Login') %></a>
-            <% } else { %>
-            <a class="btn btn-outline-danger" href="/logout"><%= __('Logout') %></a>
-            <% } %>
+            <!-- create-post-&-my-posts-------- -->
+            <a class="btn btn-outline-primary me-2" href="/new_post"><%= __('New Post') %></a>
+            <a class="btn btn-outline-primary me-2" href="/my_posts"><%= __('My Posts') %></a>
           </div>
+          <% } %>
         </div>
       </div>
     </nav>

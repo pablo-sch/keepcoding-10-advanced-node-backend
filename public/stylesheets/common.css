@@ -3,7 +3,7 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
 .app-name {
@@ -13,7 +13,7 @@ a {
   padding: 2px 5px;
 }
 
-.add-product{
+.add-post {
   max-width: 600px;
 }
 
@@ -26,7 +26,7 @@ a {
 }
 
 .custom-section label {
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 /* .form-template .form-group {

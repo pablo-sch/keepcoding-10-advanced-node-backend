@@ -1,5 +1,5 @@
 {
-  "Add Product": "Add Product",
+  "Add post": "Add post",
   "Avatar": "Avatar",
   "Create Account": "Create Account",
   "Create Post": "Create Post",
@@ -7,13 +7,13 @@
   "Delete": "Delete",
   "Email Address": "Email Address",
   "Enter Password": "Enter Password",
-  "Enter Product Name": "Enter Product Name",
-  "Enter Product Price": "Enter Product Price",
+  "Enter post Name": "Enter post Name",
+  "Enter post Price": "Enter post Price",
   "Enter Name": "Enter Name",
   "Enter Email": "Enter Email",
   "Lifestyle": "Lifestyle",
   "Login": "Login",
-  "Login to access your products": "Login to access your products",
+  "Login to access your posts": "Login to access your posts",
   "Logged User": "Logged User",
   "Logout": "Logout",
   "Mobile": "Mobile",
@@ -25,7 +25,7 @@
   "Posts": "Posts",
   "Previous": "Previous",
   "Price": "Price",
-  "Product Photo": "Product Photo",
+  "post Photo": "post Photo",
   "Search": "Search",
   "Select Tag": "Select Tag",
   "Select a Tag": "Select a Tag",
@@ -33,5 +33,14 @@
   "Work": "Work",
   "Language": "Language",
   "API Doc": "API Doc",
-  "login_message": "<a href='/login'>Log in</a> or <a href='/new_user'>create an account</a> to access the products."
+  "New Post": "New Post",
+  "Edit": "Edit",
+  "Edit Post": "Edit Post",
+  "Post Photo": "Post Photo",
+  "Accept": "Accept",
+  "Cancel": "Cancel",
+  "You have not created any posts yet.": "You have not created any posts yet.",
+  "Create your first post": "Create your first post",
+
+  "login_message": "<a href='/login'>Log in</a> or <a href='/new_user'>create an account</a> to access the posts."
 }

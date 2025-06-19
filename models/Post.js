@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const productSchema = new Schema(
+const postSchema = new Schema(
   {
     name: String,
     price: { type: Number },
@@ -14,20 +14,19 @@ const productSchema = new Schema(
     },
   },
   {
-    collection: "products", // to force the name of the collection
+    collection: "posts", // to force the name of the collection
     versionKey: false, // to deactivate the field ‘__v’ in MongoDB
   }
 );
 
-productSchema.statics.list = async function (filter, limit, skip, sort, fields) {
-  const [products, total] = await Promise.all([
+postSchema.statics.list = async function (filter, limit, skip, sort, fields) {
+  const [posts, total] = await Promise.all([
     this.find(filter).populate("owner", "name").limit(limit).skip(skip).sort(sort).select(fields),
     this.countDocuments(filter),
   ]);
 
-  return { products, total };
+  return { posts, total };
 };
 
-const Product = mongoose.model("Product", productSchema);
-
-export default Product;
+const Post = mongoose.model("Post", postSchema);
+export default Post;

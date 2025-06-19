@@ -7,9 +7,8 @@
   <p><%- __('login_message') %></p>
   <% } else { %>
 
-  <!-- ============================================================================================================================== -->
-
-<div class="search-product custom-section d-flex justify-content-center">
+<!-- search-posts-------------------------------------------------------------------------- -->
+<div class="search-post custom-section d-flex justify-content-center">
   <form action="/" method="GET" class="w-100" style="max-width: 1200px;">
     <div class="d-flex w-100 align-items-center gap-2">
           <input 
@@ -27,55 +26,34 @@
             <option value="motor" <%= query.tag === 'tag3' ? 'selected' : '' %>><%= __('Motor')%></option>
             <option value="mobile" <%= query.tag === 'tag4' ? 'selected' : '' %>><%= __('Mobile')%></option>
           </select> 
-
-          <div class="form-check align-self-center me-3">
-            <input class="form-check-input" type="checkbox" value="true"
-            id="myPosts" name="myPosts" <%= query.myPosts === "true" ? "checked"
-            : "" %> />
-            <label class="form-check-label" for="myPosts">
-              <%= __('My Posts')%>
-            </label>
-          </div>
-
           <button type="submit" class="btn btn-primary"><%= __('Search')%></button>
       </div>
     </form>
   </div>
 
-  <!-- ============================================================================================================================== -->
-  <% 
-    const currentPage = Math.floor(skip / limit) + 1;
-    const totalPages = Math.ceil(totalProducts / limit);
-  %>
+  <!-- ================================================================ -->
+  <%- include('pagination.ejs', { baseQuery, skip, limit, totalposts }) %>
+  <!-- ================================================================ -->
 
-  <%- include('pagination.ejs', { baseQuery, skip, limit, totalProducts, currentPage }) %>
-  <!-- ============================================================================================================================== -->
-
-  <div class="show-products custom-section">
+  <!-- show-posts---------------------------------------------------------------------------- -->
+  <div class="show-posts custom-section">
     <div class="row">
-      <% products.forEach(product => { %>
+      <% posts.forEach(post => { %>
       <div class="col-md-4 mb-4">
         <div class="card">
           <% 
-            const isPlaceholder = product.photo === 'placeholder-image.jpg';
-            const photoSrc = isPlaceholder ? '/images/placeholder/placeholder-image.jpg' : '/photos/' + product.photo;
+            const isPlaceholder = post.photo === 'placeholder-image.jpg';
+            const photoSrc = isPlaceholder ? '/images/placeholder/placeholder-image.jpg' : '/photos/' + post.photo;
           %>
           <img
             src="<%= photoSrc %>"
             class="card-img-top"
-            alt="<%= product.name %>"
+            alt="<%= post.name %>"
           />
           <div class="card-body">
-            <h5 class="card-title"><%= product.name %></h5>
-            <p class="card-text"><%= __('Price')%>: $<%= product.price %></p>
-            <p class="card-text"><%= __('Tag')%>: <%= product.tag %></p>
-
-            <% if (product.owner?._id?.toString() ===
-            user.id.toString()) { %>
-            <a href="/delete/<%= product._id %>" class="btn btn-danger">
-              <i class="bi bi-trash3"></i> <%= __('Delete')%>
-            </a>
-            <% } %>
+            <h5 class="card-title"><%= post.name %></h5>
+            <p class="card-text"><%= __('Price')%>: $<%= post.price %></p>
+            <p class="card-text"><%= __('Tag')%>: <%= post.tag %></p>
           </div>
         </div>
       </div>
@@ -83,9 +61,9 @@
     </div>
   </div>
 
-
-  <%- include('pagination.ejs', { baseQuery, skip, limit, totalProducts, currentPage }) %>
-
+  <!-- ================================================================ -->
+  <%- include('pagination.ejs', { baseQuery, skip, limit, totalposts }) %>
+  <!-- ================================================================ -->
   <% } %>
 </div>
 

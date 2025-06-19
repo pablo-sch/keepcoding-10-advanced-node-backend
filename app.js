@@ -20,7 +20,7 @@ import swaggerMiddleware from "./lib/swaggerMiddleware.js";
 
 //import * as indexController from "./src/controllers/indexController.js";
 import * as loginController from "./src/controllers/loginController.js";
-import * as productController from "./src/controllers/productController.js";
+import * as postController from "./src/controllers/postController.js";
 import * as userController from "./src/controllers/userController.js";
 
 import uploadPhotos from "./src/middleware/uploadPhotos.js";
@@ -28,7 +28,7 @@ import uploadAvatars from "./src/middleware/uploadAvatars.js";
 
 import * as localeController from "./src/controllers/localeController.js";
 
-//import * as apiProductController from "./src/controllers/api/apiProductController.js";
+//import * as apipostController from "./src/controllers/api/apipostController.js";
 //import * as apiLoginController from "./src/controllers/api/apiLoginController.js";
 
 //Connect to MongoDB=========================================================
@@ -53,9 +53,9 @@ app.use(express.static(path.join(import.meta.dirname, "public")));
 //My Application Routes=======================================================
 //API Routes------------------------------------------------------------------
 /* 
-app.get("/api/products", apiProductController.list);
-app.get('/api/products/:productsId', apiProductController.getOne)
-app.post('/api/products', upload.single('avatar'), apiProductController.newProduct)
+app.get("/api/posts", apipostController.list);
+app.get('/api/posts/:postsId', apipostController.getOne)
+app.post('/api/posts', upload.single('avatar'), apipostController.newpost)
  */
 
 //Dependences---------------------------------------------------------------------
@@ -74,17 +74,25 @@ app.post("/login", loginController.postLogin);
 app.get("/login", loginController.index);
 app.get("/logout", loginController.logout);
 
-//Product---------------------------------------------------------------------
-app.get("/", productController.listProducts);
-app.get("/new_product", sessionManager.guard, (req, res) => {
-  res.render("product", { session: req.session });
+//Post---------------------------------------------------------------------
+app.get("/", postController.listPosts);
+app.get("/my_posts", sessionManager.guard, postController.listPosts);
+
+app.post("/new_post", uploadPhotos.single("photo"), sessionManager.guard, postController.newPost);
+
+app.get("/new_post", sessionManager.guard, (req, res) => {
+  res.render("post", { session: req.session });
 });
-app.post("/new_product", sessionManager.guard, uploadPhotos.single("photo"), productController.newProduct);
-//app.delete("/api/products/:productId", sessionManager.guard, productController.deleteProduct);
-app.get("/delete/:productId", sessionManager.guard, productController.deleteProduct);
+
+//app.delete("/api/posts/:postId", sessionManager.guard, postController.deletepost);
+app.get("/delete/:postId", sessionManager.guard, postController.deletePost);
+
+app.get("/post_detail/:postId", sessionManager.guard, postController.getPostDetail);
+
+app.post("/post_detail/:postId", sessionManager.guard, uploadPhotos.single("photo"), postController.editPost);
 
 //User------------------------------------------------------------------------
-app.post("/new_user", uploadAvatars.single("avatar"), sessionManager.guard, userController.createNew);
+app.post("/new_user", uploadAvatars.single("avatar"), userController.newUser);
 app.get("/new_user", (req, res) => {
   res.render("user", { session: req.session });
 });
@@ -94,6 +102,7 @@ app.get("/new_user", (req, res) => {
 app.use((req, res, next) => {
   const error = new Error("Not Found");
   error.status = 404;
+  console.warn("404 Not Found:", req.method, req.originalUrl);
   next(error);
 });
 
