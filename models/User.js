@@ -1,7 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 
-// defining the user scheme
+import { createTransport, sendEmail, generatePreviewURL } from "../lib/emailManager.js";
+
 const userSchema = new Schema(
   {
     name: String,
@@ -24,6 +25,21 @@ userSchema.statics.hashPassword = (clearPassword) => {
 userSchema.methods.comparePassword = function (clearPassword) {
   return bcrypt.compare(clearPassword, this.password);
 };
+
+//WEB-SOCKET****************************************************************************
+// Sends an email to the user using the configured transport and logs a preview URL.
+userSchema.methods.sendEmail = async function (subject, body) {
+  const transport = createTransport();
+  const result = await sendEmail({
+    transport,
+    to: this.email,
+    subject,
+    body,
+  });
+  const previewURL = generatePreviewURL(result);
+  console.log("SOCKET.IO: Simulated E-Mail ", previewURL);
+};
+//**************************************************************************************
 
 const User = mongoose.model("User", userSchema);
 

@@ -1,12 +1,12 @@
 import fs from "fs/promises";
 import createError from "http-errors";
-
 import path from "path";
 import { fileURLToPath } from "url";
 
 import Post from "../../models/Post.js";
+import { io } from "../../webSocketServer.js";
 
-//Add New post==========================================================================================
+//ADD-NEW-POST==========================================================================================
 export async function newPost(req, res, next) {
   try {
     const { name, price, tag } = req.body;
@@ -32,7 +32,7 @@ export async function newPost(req, res, next) {
   }
 }
 
-//List Posts============================================================================================
+//LIST-PRODUCTS=========================================================================================
 export async function listPosts(req, res, next) {
   try {
     //Pagination of Posts--------------------------------------------------------
@@ -73,6 +73,16 @@ export async function listPosts(req, res, next) {
       throw new Error("No posts data found. 'posts' is undefined or null.");
     }
 
+    //WEB-SOCKET***********************************************************************
+    setTimeout(() => {
+      const userId = req.session?.user?.id;
+      if (userId) {
+        console.log("SOCKET.IO: Sending Welcome Message to User With SessionId", req.session.id);
+        io.to(req.session.id).emit("server-message", `welcome user ${userId}`);
+      }
+    }, 5000);
+    //*********************************************************************************
+
     res.render(view, {
       posts,
       query: req.query,
@@ -87,7 +97,7 @@ export async function listPosts(req, res, next) {
   }
 }
 
-//Update Post===========================================================================================
+//UPDATE-POST===========================================================================================
 export async function editPost(req, res, next) {
   try {
     const userId = req.session.user.id;
@@ -101,15 +111,15 @@ export async function editPost(req, res, next) {
 
     const { name, price, tag } = req.body;
 
-    // Si se sube una nueva imagen
+    // If a new image is uploaded
     if (req.file) {
       const oldPhoto = post.photo;
 
-      // Guardamos la nueva imagen
+      // We save the new image
       const newPhoto = req.file.filename;
       post.photo = newPhoto;
 
-      // Si la imagen anterior no es el placeholder, eliminarla
+      // If the above image is not the placeholder, delete it
       if (oldPhoto && oldPhoto !== "placeholder-image.jpg") {
         const imagePath = path.resolve("public", "photos", oldPhoto);
         try {
@@ -121,7 +131,6 @@ export async function editPost(req, res, next) {
       }
     }
 
-    // Actualizar el resto de campos
     post.name = name;
     post.price = price;
     post.tag = tag;
@@ -134,7 +143,7 @@ export async function editPost(req, res, next) {
   }
 }
 
-//Get One Post==========================================================================================
+//GET-POST-BY-ID========================================================================================
 export async function getPostDetail(req, res, next) {
   try {
     const postId = req.params.postId;
@@ -152,7 +161,7 @@ export async function getPostDetail(req, res, next) {
   }
 }
 
-//Delete Post===========================================================================================
+//DELETE-POST===========================================================================================
 export async function deletePost(req, res, next) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);

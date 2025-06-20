@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 //CommomJS (default) --> ES Modules--------------------------------------------------------------
 
 // 1st Express/Node libraries
@@ -17,8 +16,9 @@ import * as sessionManager from "./lib/sessionManager.js";
 
 import i18n from "./lib/i18nConfigure.js";
 import swaggerMiddleware from "./lib/swaggerMiddleware.js";
+import * as jwtAuth from "./lib/jwtAuthMiddleware.js";
+import basicAuthMiddleware from "./lib/basicAuthMiddleware.js";
 
-//import * as indexController from "./src/controllers/indexController.js";
 import * as loginController from "./src/controllers/loginController.js";
 import * as postController from "./src/controllers/postController.js";
 import * as userController from "./src/controllers/userController.js";
@@ -28,8 +28,8 @@ import uploadAvatars from "./src/middleware/uploadAvatars.js";
 
 import * as localeController from "./src/controllers/localeController.js";
 
-//import * as apipostController from "./src/controllers/api/apipostController.js";
-//import * as apiLoginController from "./src/controllers/api/apiLoginController.js";
+import * as apiPostController from "./src/controllers/api/apiPostController.js";
+import * as apiLoginController from "./src/controllers/api/apiLoginController.js";
 
 //Connect to MongoDB=========================================================
 await connectMongoose();
@@ -52,11 +52,13 @@ app.use(express.static(path.join(import.meta.dirname, "public")));
 
 //My Application Routes=======================================================
 //API Routes------------------------------------------------------------------
-/* 
-app.get("/api/posts", apipostController.list);
-app.get('/api/posts/:postsId', apipostController.getOne)
-app.post('/api/posts', upload.single('avatar'), apipostController.newpost)
- */
+
+app.post("/api/login", apiLoginController.loginJWT);
+app.get("/api/posts", jwtAuth.guard, apiPostController.listFilteredPosts);
+app.get("/api/posts/:postsId", jwtAuth.guard, apiPostController.getPostById);
+app.post("/api/posts", jwtAuth.guard, uploadAvatars.single("avatar"), apiPostController.addPost);
+app.put("/api/posts/:postsId", jwtAuth.guard, uploadAvatars.single("avatar"), apiPostController.updatePost);
+app.delete("/api/posts/:postsId", jwtAuth.guard, apiPostController.deletePost);
 
 //Dependences---------------------------------------------------------------------
 app.use(cookieParser());
@@ -70,12 +72,12 @@ app.use(sessionManager.middleware);
 app.use(sessionManager.useSessionInViews);
 
 //Login-----------------------------------------------------------------------
-app.post("/login", loginController.postLogin);
-app.get("/login", loginController.index);
-app.get("/logout", loginController.logout);
+app.post("/login", loginController.handleLogin);
+app.get("/login", loginController.renderLoginForm);
+app.get("/logout", loginController.handleLogout);
 
 //Post---------------------------------------------------------------------
-app.get("/", postController.listPosts);
+app.get("/", /* basicAuthMiddleware, */ postController.listPosts);
 app.get("/my_posts", sessionManager.guard, postController.listPosts);
 
 app.post("/new_post", uploadPhotos.single("photo"), sessionManager.guard, postController.newPost);
@@ -92,7 +94,7 @@ app.get("/post_detail/:postId", sessionManager.guard, postController.getPostDeta
 app.post("/post_detail/:postId", sessionManager.guard, uploadPhotos.single("photo"), postController.editPost);
 
 //User------------------------------------------------------------------------
-app.post("/new_user", uploadAvatars.single("avatar"), userController.newUser);
+app.post("/new_user", uploadAvatars.single("avatar"), userController.addUser);
 app.get("/new_user", (req, res) => {
   res.render("user", { session: req.session });
 });

@@ -1,16 +1,20 @@
 //import session from 'express-session'
 import User from "../../models/User.js";
+import { io } from "../../webSocketServer.js";
 
-export function index(req, res) {
-  res.locals.error = "";
+//RENDER-LOGIN-FORM=====================================================================================
+export function renderLoginForm(req, res) {
   res.locals.email = "";
   res.render("login");
 }
 
-export async function postLogin(req, res, next) {
+//LOG-IN================================================================================================
+export async function handleLogin(req, res, next) {
   try {
     const { email, password } = req.body;
     const redir = req.query.redir;
+
+    const sessionId = req.session.id;
 
     // search for the user in the database
     const user = await User.findOne({ email: email });
@@ -30,18 +34,35 @@ export async function postLogin(req, res, next) {
       avatar: user.avatar,
     };
 
+    //WEB-SOCKET******************************************
+    // send an email to the user
+    /* await */ user.sendEmail("Welcome to NodePop.");
+    //await user.sendEmail("Welcome", "Welcome to NodePop.");
+    //****************************************************
+
+    console.log("EXPRESS: Connecting to NodePop with SessionId ", sessionId);
+
     res.redirect(redir ? redir : "/");
   } catch (error) {
     next(error);
   }
 }
 
-export function logout(req, res, next) {
+//LOG-OUT===============================================================================================
+export function handleLogout(req, res, next) {
+  const oldSessionId = req.session.id;
   req.session.regenerate((err) => {
     if (err) {
       next(err);
       return;
     }
+
+    //WEB-SOCKET******************************************
+    io.in(oldSessionId).disconnectSockets();
+    //****************************************************
+
+    console.log("EXPRESS: Disconnecting from NodePop with SessionId ", oldSessionId);
+
     res.redirect("/");
   });
 }

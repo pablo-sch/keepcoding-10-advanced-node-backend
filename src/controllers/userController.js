@@ -1,7 +1,7 @@
 import User from "../../models/User.js";
 
-//createUser=====================================================================
-export async function newUser(req, res, next) {
+//ADD-USER=======================================================================
+export async function addUser(req, res, next) {
   try {
     const { name, email, password } = req.body;
 

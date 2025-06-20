@@ -10,4 +10,4 @@ Edit Profile.
 
 - Cannot open Dropbox by default in my header.ejs. An axillary code was implemented to force it to open.
 
-- In my connectMongoose.js when connecting to mongoose my “process.env.MONGODB_CONNSTR” passes as string so it causes error. An auxiliary code was used to pass it not as a string.
+- Sometime my .env passes as string so it causes error. An auxiliary code was used to pass it not as a string.

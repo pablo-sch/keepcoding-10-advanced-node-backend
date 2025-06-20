@@ -1,4 +1,4 @@
-import post from "../../models/post.js";
+import post from "../../../models/Post.js";
 import { unlink } from "node:fs/promises";
 import path from "node:path";
 import createError from "http-errors";
@@ -15,10 +15,9 @@ import createError from "http-errors";
  *       200:
  *         description: Returns a mysterious string.
  */
-export async function list(req, res, next) {
+export async function listFilteredPosts(req, res, next) {
   try {
     const userId = req.apiUserId;
-
     const filter = { owner: userId };
 
     // Filters-------------------------------------------------
@@ -60,7 +59,7 @@ export async function list(req, res, next) {
 // GET /api/posts/:postId
 //Get One post==============================================================================
 
-export async function getpost(req, res, next) {
+export async function getPostById(req, res, next) {
   try {
     const postId = req.params.postId;
     const userId = req.apiUserId;
@@ -89,7 +88,7 @@ export async function getpost(req, res, next) {
  *       200:
  *         description: Returns a mysterious string.
  */
-export async function newpost(req, res, next) {
+export async function addPost(req, res, next) {
   try {
     const userId = req.apiUserId;
     const postData = req.body;
@@ -111,7 +110,7 @@ export async function newpost(req, res, next) {
 // PUT /api/posts/:postId
 //Update post===============================================================================
 
-export async function update(req, res, next) {
+export async function updatePost(req, res, next) {
   try {
     const postId = req.params.postId;
     const userId = req.apiUserId;
@@ -135,7 +134,7 @@ export async function update(req, res, next) {
 // DELETE /api/posts/:postId
 //Delete post===============================================================================
 
-export async function deletepost(req, res, next) {
+export async function deletePost(req, res, next) {
   try {
     const postId = req.params.postId;
     const userId = req.apiUserId;

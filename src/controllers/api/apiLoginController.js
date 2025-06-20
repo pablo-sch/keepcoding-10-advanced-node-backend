@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import User from "../../models/User.js";
+import User from "../../../models/User.js";
 import createError from "http-errors";
 
 export async function loginJWT(req, res, next) {
@@ -11,7 +11,7 @@ export async function loginJWT(req, res, next) {
 
     // si no lo encuentro, o la contraseña no coincide --> error
     if (!user || !(await user.comparePassword(password))) {
-      next(createError(401, "invalid credentials"));
+      next(createError(401, "Invalid Credentials"));
       return;
     }
 
