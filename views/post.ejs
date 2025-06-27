@@ -1,56 +1,38 @@
 <%- include('header.ejs') %>
 
 <div class="container">
-  <h2><%= __('Create Post')%></h2>
+  <h2><%= __('Create Post') %></h2>
 
-  <% if (!user && user.id) { %>
-  <p><%- __('login_message') %></p>
-  <% } else { %>
+  <% if (!user || !user.id) { %> <%- include('not-logged-in-message.ejs') %> <% } else { %>
   <div class="add-post form-template custom-section">
-    <form
-      id="postForm"
-      action="/new_post"
-      method="POST"
-      enctype="multipart/form-data"
-    >
+    <form id="postForm" action="/new_post" method="POST" enctype="multipart/form-data">
       <div class="form-group">
-        <label><%= __('Name')%></label>
-        <input
-          type="text"
-          name="name"
-          class="form-control"
-          id=""
-          aria-describedby=""
-          placeholder="<%= __('Enter post Name')%>"
-        />
+        <label for="name"><%= __('Name') %></label>
+        <input type="text" name="name" class="form-control" id="name" placeholder="<%= __('Enter post Name') %>" />
       </div>
 
       <div class="form-group">
-        <label><%= __('Price')%></label>
-        <input
-          type="text"
-          name="price"
-          class="form-control"
-          id=""
-          placeholder="<%= __('Enter post Price')%>"
-        />
+        <label for="price"><%= __('Price') %></label>
+        <input type="text" name="price" class="form-control" id="price" placeholder="<%= __('Enter post Price') %>" />
       </div>
 
       <div class="form-group">
-        <label for="tag"><%= __('Tag')%></label>
+        <label for="tag"><%= __('Tag') %></label>
         <select class="form-select" name="tag" id="tag" required>
-          <option value=""><%= __('Select a Tag')%></option>
-          <option value="work"><%= __('Work')%></option>
-          <option value="lifestyle"><%= __('Lifestyle')%></option>
-          <option value="motor"><%= __('Motor')%></option>
-          <option value="mobile"><%= __('Mobile')%></option>
+          <option value=""><%= __('Select a Tag') %></option>
+          <option value="work"><%= __('Work') %></option>
+          <option value="lifestyle"><%= __('Lifestyle') %></option>
+          <option value="motor"><%= __('Motor') %></option>
+          <option value="mobile"><%= __('Mobile') %></option>
         </select>
+      </div>
 
       <div class="form-group">
-        <label for="customFile" class="form-label"><%= __('post Photo')%></label>
+        <label for="customFile" class="form-label"><%= __('Photo') %></label>
         <input type="file" name="photo" class="form-control" id="customFile" />
       </div>
-      <button type="submit" class="btn btn-primary"><%= __('Add post')%></button>
+
+      <button type="submit" class="btn btn-primary"><%= __('Add Post') %></button>
     </form>
   </div>
   <% } %>

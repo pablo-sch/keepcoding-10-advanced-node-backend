@@ -4,25 +4,24 @@
   <h2><%= __('My Posts') %></h2>
 
   <% if (!user || !user.id) { %>
-    <p><%- __('login_message') %></p>
-
+    <%- include('not-logged-in-message.ejs') %>
   <% } else if (posts.length === 0) { %>
-    <div class="alert alert-info mt-4">
+    <div class="blank-space w-100 p-4">
       <%= __('You have not created any posts yet.') %>
-      <a href="/new_product" class="alert-link"><%= __('Create your first post') %></a>
+      <a href="/new_post" class="alert-link"><%= __('Create your first post') %></a>
     </div>
 
   <% } else { %>
   
     <!-- search-posts-------------------------------------------------------------------------- -->
-    <div class="search-post custom-section d-flex justify-content-center">
-      <form action="/my_posts" method="GET" class="w-100" style="max-width: 1200px;">
+    <div class="search-post custom-section d-flex justify-content-center py-2 my-2">
+      <form action="/my_posts" method="GET">
         <div class="d-flex w-100 align-items-center gap-2">
           <input 
             type="text"
             class="form-control me-2"
             name="search"
-            placeholder="<%= __('Search') %>..."
+            placeholder="<%= __('Search by Name') %>..."
             value="<%= query.search || '' %>"
           />
 

@@ -1,34 +1,77 @@
+:root {
+  --color-9: #202020e8;
+  --color-8: #3a3a3a;
+  --color-7: #535353;
+  --color-6: #646464;
+  --color-5: #7c7c7c;
+  --color-4: #afafaf;
+  --color-3: #c0c0c0;
+  --color-2: #e6e6e6;
+  --color-1: #ffffff;
+
+  --font-color-1: #ffffff;
+
+  --color-logo: #22b14c;
+  --color-btn-3: #9c7e98;
+  --color-btn-2: #e62253;
+  --color-btn-1: #2faece;
+
+  --bg-color-9: #181a1b;
+  --bg-color-8: #3a3a3a;
+  --bg-color-7: #535353;
+  --bg-color-6: #c59669;
+  --bg-color-5: #2faece;
+  --bg-color-4: #b18255;
+  --bg-color-3: #cc9867;
+  --bg-color-2: #806853bb;
+  --bg-color-1: #6b5949;
+}
+
+html,
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100%;
+  margin: 0;
+  background-color: var(--bg-color-3);
 }
 
-a {
-  color: #00b7ff;
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.app-name {
+form {
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  background-color: var(--bg-color-6);
+}
+
+form label {
+  font-weight: bolder;
+}
+
+form .form-group {
+  margin-bottom: 0.5rem;
+}
+
+.container {
+  flex: 1;
+  background-color: var(--bg-color-4);
+}
+
+.navbar-brand {
   font-weight: bold;
   font-size: 20px;
-  color: green;
+  color: rgb(165, 241, 22);
   padding: 2px 5px;
 }
 
-.add-post {
-  max-width: 600px;
+.blank-space {
+  background-color: var(--color-2);
+  border-radius: 0.3rem;
 }
 
-.custom-section {
-  margin-bottom: 30px;
+.search-post {
+  background-color: var(--bg-color-6);
 }
-
-.custom-section .form-group {
-  margin-bottom: 20px;
-}
-
-.custom-section label {
-  font-weight: bold;
-}
-
-/* .form-template .form-group {
-  margin-bottom: 20px;
-} */

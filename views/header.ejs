@@ -20,22 +20,22 @@
       crossorigin="anonymous"
     ></script>
 
-    <link rel="stylesheet" href="../stylesheets/common.css" />
+    <link rel="stylesheet" href="/stylesheets/common.css" />
+    <link rel="stylesheet" href="/stylesheets/header.css" />
+    <link rel="stylesheet" href="/stylesheets/footer.css" />
+    <link rel="stylesheet" href="/stylesheets/buttons.css" />
+
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" /> -->
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid flex-column">
+      <div class="navbar-GG container-fluid flex-column">
         <!-- first-row----------------------------------------------------------------------------- -->
-        <div
-          name="first-row-navbar"
-          class="d-flex w-100 justify-content-between align-items-center"
-          style="background-color: #a8a8a8; padding: 0.5rem"
-        >
+        <div class="first-row-navbar d-flex w-100 justify-content-between align-items-center">
           <!-- logo-------------------------- -->
-          <div class="d-flex align-items-center">
+          <div class="logo-container d-flex align-items-center">
             <a href="/" class="d-flex align-items-center text-decoration-none">
-              <img src="/images/icon/icon.png" alt="Logo" style="height: 30px; width: 30px" class="me-2" />
+              <img src="/images/icon/icon.png" alt="Logo" class="me-2" />
               <span class="navbar-brand app-name mb-0"><%= appName %></span>
             </a>
           </div>
@@ -44,17 +44,17 @@
             <!-- loggin-loggout-&-create-user-- -->
             <div class="d-flex align-items-center">
               <% if (user && user.id) { %>
-              <a class="btn btn-outline-danger" href="/logout"><%= __('Logout') %></a>
+              <a class="btn btn-danger me-2" href="/logout"><%= __('Logout') %></a>
               <% } else { %>
-              <a class="btn btn-success" href="/login"><%= __('Login') %></a>
-              <a class="btn btn-outline-primary me-2" href="/new_user"><%= __('Create Account') %></a>
+              <a class="btn btn-success me-2" href="/login"><%= __('Login') %></a>
+              <a class="btn btn-primary me-2" href="/new_user"><%= __('Create Account') %></a>
               <% } %>
             </div>
 
             <!-- drop-down-languagues-swagger-- -->
-            <div class="dropdown me-3">
+            <div class="dropdown">
               <button
-                class="btn btn-outline-secondary dropdown-toggle btn-sm"
+                class="btn btn-secondary dropdown-toggle me-2"
                 type="button"
                 id="localeDropdown"
                 data-bs-toggle="dropdown"
@@ -65,29 +65,25 @@
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="localeDropdown">
                 <li>
                   <a class="dropdown-item d-flex align-items-center" href="/change-locale/en">
-                    <img src="/images/icon/en.png" alt="EN" style="width: 20px; height: 14px" class="me-2" />
+                    <img src="/images/icon/en.png" alt="EN" class="me-2" />
                     EN
                   </a>
                 </li>
                 <li>
                   <a class="dropdown-item d-flex align-items-center" href="/change-locale/es">
-                    <img src="/images/icon/es.png" alt="ES" style="width: 20px; height: 14px" class="me-2" />
+                    <img src="/images/icon/es.png" alt="ES" class="me-2" />
                     ES
                   </a>
                 </li>
               </ul>
             </div>
             <li class="nav-item list-unstyled me-3">
-              <a class="nav-link" href="/api-doc" target="_blank"><%= __('API Doc') %></a>
+              <a class="btn btn-info" href="/api-doc" target="_blank"><%= __('Swagger') %></a>
             </li>
           </div>
         </div>
         <!-- second-row---------------------------------------------------------------------------- -->
-        <div
-          name="second-row-navbar"
-          class="w-100 mt-2 ps-2 d-flex justify-content-between align-items-center"
-          style="background-color: #d0d0d0; padding: 0.5rem"
-        >
+        <div class="second-row-navbar w-100 mt-2 ps-2 d-flex justify-content-between align-items-center">
           <!-- logged-user-info-------------- -->
           <% if (user && user.id) { %>
           <div class="d-flex align-items-center">
@@ -96,34 +92,30 @@
             <% let avatarSrc = '/images/placeholder/placeholder-image.jpg'; if (user.avatar && user.avatar.trim() !== '') {
             avatarSrc = '/avatars/' + user.avatar; } %>
 
-            <img
-              src="<%= avatarSrc %>"
-              alt="Avatar"
-              class="rounded-circle me-2"
-              style="height: 32px; width: 32px; object-fit: cover; background-color: #9b9b9b"
-            />
+            <img src="<%= avatarSrc %>" alt="Avatar" class="avatar rounded-circle me-2" />
             <span class="fw-bold"><%= user.name %></span>
           </div>
           <div class="d-flex align-items-center">
             <!-- create-post-&-my-posts-------- -->
-            <a class="btn btn-outline-primary me-2" href="/new_post"><%= __('New Post') %></a>
-            <a class="btn btn-outline-primary me-2" href="/my_posts"><%= __('My Posts') %></a>
+            <a class="btn btn-primary me-2" href="/new_post"><%= __('New Post') %></a>
+            <a class="btn btn-primary me-2" href="/my_posts"><%= __('My Posts') %></a>
           </div>
           <% } %>
         </div>
       </div>
-    </nav>
-    <!-- For some reason Boostrap fails to open the Language DropDown. With the following Scrip it is fixed -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const trigger = document.getElementById("localeDropdown");
-        trigger.addEventListener("click", function (e) {
-          e.preventDefault();
-          const instance = bootstrap.Dropdown.getInstance(trigger) || new bootstrap.Dropdown(trigger);
-          instance.toggle();
+      <!-- For some reason Boostrap fails to open the Language DropDown. With the following Scrip it is fixed -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const trigger = document.getElementById("localeDropdown");
+          trigger.addEventListener("click", function (e) {
+            e.preventDefault();
+            const instance = bootstrap.Dropdown.getInstance(trigger) || new bootstrap.Dropdown(trigger);
+            instance.toggle();
+          });
         });
-      });
-    </script>
+      </script>
+    </nav>
+
     <!-- ======================================================================================================= -->
   </body>
 </html>

@@ -1,0 +1,31 @@
+.navbar{
+  padding: 0;
+  
+}
+
+.navbar-GG {
+  padding: 0.5rem;
+  background-color: var(--bg-color-1);
+}
+
+.first-row-navbar {
+  background-color: var(--bg-color-2);
+}
+
+.second-row-navbar {
+  background-color: var(--bg-color-2);
+}
+
+.logo-container {
+  margin:0.3rem;
+  background-color: var(--color-logo);
+  border-radius: 0.3rem;
+  padding-left: 0.5rem;
+}
+
+.avatar {
+  height: 32px;
+  width: 32px;
+  object-fit: cover;
+  background-color: #9b9b9b;
+}
