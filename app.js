@@ -52,13 +52,12 @@ app.use(express.static(path.join(import.meta.dirname, "public")));
 
 //My Application Routes=======================================================
 //API Routes------------------------------------------------------------------
-
 app.post("/api/login", apiLoginController.loginJWT);
 app.get("/api/posts", jwtAuth.guard, apiPostController.listFilteredPosts);
-app.get("/api/posts/:postsId", jwtAuth.guard, apiPostController.getPostById);
-app.post("/api/posts", jwtAuth.guard, uploadAvatars.single("avatar"), apiPostController.addPost);
-app.put("/api/posts/:postsId", jwtAuth.guard, uploadAvatars.single("avatar"), apiPostController.updatePost);
-app.delete("/api/posts/:postsId", jwtAuth.guard, apiPostController.deletePost);
+app.get("/api/posts/:postId", jwtAuth.guard, apiPostController.getPostById);
+app.post("/api/posts", jwtAuth.guard, uploadAvatars.single("photo"), apiPostController.newPost);
+app.put("/api/posts/:postId", jwtAuth.guard, uploadAvatars.single("photo"), apiPostController.updatePost);
+app.delete("/api/posts/:postId", jwtAuth.guard, apiPostController.deletePost);
 
 //Dependences---------------------------------------------------------------------
 app.use(cookieParser());
