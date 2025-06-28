@@ -1,6 +1,6 @@
 # Entrega Proyecto de Backend Avanzado con Node.js
 
-**Proyectos KeepCoding - Web 18** --> 📁 [repos-kc-web-18.md](https://github.com/pablo-sch/pablo-sch/blob/main/docs/repos-kc-web-18.md)
+- **Proyectos KeepCoding - Web 18:** 📁 [repos-kc-web-18.md](https://github.com/pablo-sch/pablo-sch/blob/main/docs/repos-kc-web-18.md)
 
 ## Selecciona tu Idioma
 
@@ -123,7 +123,7 @@ Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases v
 git clone https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
 ```
 
-Ver Demo de Clonanción en VSCode: 📁 [Demo del Proyecto](https://github.com/pablo-sch/pablo-sch/blob/main/etc/clone-tutorial.gif)
+- **Ver Demo de Clonanción en VSCode:** 📁 [Demo](https://github.com/pablo-sch/pablo-sch/blob/main/etc/clone-tutorial.gif)
 
 ### 3. Pasos Para Utilizar Este Proyecto
 
