@@ -1,11 +1,8 @@
 # Entrega Proyecto de Backend Avanzado con Node.js
 
-- **Proyectos KeepCoding - Web 18:** 📁 [repos-kc-web-18.md](https://github.com/pablo-sch/pablo-sch/blob/main/docs/repos-kc-web-18.md)
+`>` **Proyectos KeepCoding - Web 18:** 📁 [repos-kc-web-18.md](https://github.com/pablo-sch/pablo-sch/blob/main/docs/repos-kc-web-18.md)
 
-## Selecciona tu Idioma
-
-- 🇺🇸 [Inglés](README.md)
-- 🇩🇪 [Alemán](README.de.md)
+`>`**Selecciona tu Idioma:** [Inglés](README.md) 🔄 [Alemán](README.de.md)
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -17,85 +14,85 @@ Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases v
 
 ## Conocimientos Aprendidos y Trabajados
 
-- Herramientas y Desarrollo
+1. Herramientas y Desarrollo
 
-  - Uso del debugger en VSCode y entornos IDE.
-  - Comandos personalizados con NPM.
-  - Manejo de clústeres en Node.js.
+   - Uso del debugger en VSCode y entornos IDE.
+   - Comandos personalizados con NPM.
+   - Manejo de clústeres en Node.js.
 
-- Subida de Archivos
+2. Subida de Archivos
 
-  - Gestión de imágenes con `multer`.
+   - Gestión de imágenes con `multer`.
 
-- Internacionalización (i18n)
+3. Internacionalización (i18n)
 
-  - Detección del idioma desde la cabecera `Accept-Language`.
-  - Idioma por defecto y geolocalización opcional.
-  - Uso de la librería `i18n-node`.
+   - Detección del idioma desde la cabecera `Accept-Language`.
+   - Idioma por defecto y geolocalización opcional.
+   - Uso de la librería `i18n-node`.
 
-- API REST
+4. API REST
 
-  - Métodos HTTP: GET, POST, PUT, DELETE, PATCH.
-  - Respuestas y errores en formato JSON.
-  - Documentación con Swagger/OpenAPI.
-  - Autenticación con API Key y JWT.
-  - Prácticas idempotentes y estructura segura.
+   - Métodos HTTP: GET, POST, PUT, DELETE, PATCH.
+   - Respuestas y errores en formato JSON.
+   - Documentación con Swagger/OpenAPI.
+   - Autenticación con API Key y JWT.
+   - Prácticas idempotentes y estructura segura.
 
-- Tareas en Segundo Plano
+5. Tareas en Segundo Plano
 
-  - Envío y programación de correos.
-  - Uso de colas (RabbitMQ) para tareas en background.
+   - Envío y programación de correos.
+   - Uso de colas (RabbitMQ) para tareas en background.
 
-- WebSockets
+6. WebSockets
 
-  - Comunicación en tiempo real.
+   - Comunicación en tiempo real.
 
-- Microservicios
+7. Microservicios
 
-  - Comparativa con monolitos.
-  - API Gateway y JWT para microservicios.
-  - Arquitectura basada en eventos.
+   - Comparativa con monolitos.
+   - API Gateway y JWT para microservicios.
+   - Arquitectura basada en eventos.
 
-- Seguridad y Arquitectura
+8. Seguridad y Arquitectura
 
-  - Configuración de HTTPS en local.
+   - Configuración de HTTPS en local.
 
-- Buenas Prácticas
+9. Buenas Prácticas
 
-  - Diseño de APIs y desarrollo en Node.js.
-  - Enfoque TDD (Test-Driven Development).
+   - Diseño de APIs y desarrollo en Node.js.
+   - Enfoque TDD (Test-Driven Development).
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
 ## Detalles del Proyecto
 
-- Internacionalización
+1. Internacionalización
 
-  - Convertir la web de Nodepop en multi-idioma (español e inglés).
-  - Selector de idioma para cambiar entre ambos.
-  - No es necesario internacionalizar la API.
+   - Convertir la web de Nodepop en multi-idioma (español e inglés).
+   - Selector de idioma para cambiar entre ambos.
+   - No es necesario internacionalizar la API.
 
-- Creación de Producto con Imagen
+2. Creación de Producto con Imagen
 
-  - Añadir enlace y página para crear productos con formulario que permita subir imagen.
-  - La imagen debe guardarse y asociarse al producto.
+   - Añadir enlace y página para crear productos con formulario que permita subir imagen.
+   - La imagen debe guardarse y asociarse al producto.
 
-- API REST
+3. API REST
 
-  - Endpoints clave:
-  - POST /api/login (login y JWT)
-  - GET /api/products (lista con filtros, paginación y usuario autenticado)
-  - GET /api/products/{id} (producto específico)
-  - POST /api/products (crear producto con imagen)
-  - PUT /api/products/{id} (actualizar)
-  - DELETE /api/products/{id} (eliminar)
-  - Documentación mínima en README (opcional Swagger).
-  - Usuarios por defecto: admin@example.com y user1@example.com (clave: 1234).
+   - Endpoints clave:
+   - POST /api/login (login y JWT)
+   - GET /api/products (lista con filtros, paginación y usuario autenticado)
+   - GET /api/products/{id} (producto específico)
+   - POST /api/products (crear producto con imagen)
+   - PUT /api/products/{id} (actualizar)
+   - DELETE /api/products/{id} (eliminar)
+   - Documentación mínima en README (opcional Swagger).
+   - Usuarios por defecto: `admin@example.com` y `user1@example.com` (clave: 1234).
 
-- Objetivos Opcionales
+4. Objetivos Opcionales
 
-  - Servicio en segundo plano para crear thumbnails 100x100 con cote.js o RabbitMQ.
-  - Crear y publicar un módulo npm útil y agregar la URL en el README.
+   - Servicio en segundo plano para crear thumbnails 100x100 con cote.js o RabbitMQ.
+   - Crear y publicar un módulo npm útil y agregar la URL en el README.
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -123,7 +120,7 @@ Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases v
 git clone https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
 ```
 
-- **Ver Demo de Clonanción en VSCode:** 📁 [Demo](https://github.com/pablo-sch/pablo-sch/blob/main/etc/clone-tutorial.gif)
+`>` **Ver Demo de Clonanción en VSCode:** 🎥 [Gif Demo](https://github.com/pablo-sch/pablo-sch/blob/main/etc/clone-tutorial.gif)
 
 ### 3. Pasos Para Utilizar Este Proyecto
 
@@ -132,39 +129,35 @@ Luego, sigue estos pasos:
 
 1. Instala las dependencias del proyecto:
 
-```sh
-npm install
-```
+   ```sh
+   npm install
+   ```
 
 2. Inicializa la base de datos (solo necesario en el primer despliegue):
 
-```sh
-npm run initDB
-```
+   ```sh
+   npm run initDB
+   ```
 
 3. Copia el archivo de variables de entorno:
 
-```sh
-cp .env.example .env
-```
+   ```sh
+   cp .env.example .env
+   ```
 
 4. Ejecuta el proyecto en modo desarrollo:
 
-```sh
-npm run dev
-```
+   ```sh
+   npm run dev
+   ```
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
-## Documentación de la API
+## Recursos del Proyecto
 
-📁 [Documentación API](API-DOC.md)
+`>` **Documentación de la API:** 📄 [Documentación](api-doc.md)
 
-<!-- ------------------------------------------------------------------------------------------- -->
-
-## Vista Previa del Proyecto
-
-📁 [Vista Previa del Proyecto](demo.md)
+`>` **Vista Previa del Proyecto:** 👀 [Vista Previa](demo.md)
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
