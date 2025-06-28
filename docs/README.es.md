@@ -1,4 +1,4 @@
-# Entrega Proyecto de Desarrollo Frontend con JavaScript
+# Entrega Proyecto de Backend Avanzado con Node.js
 
 **Proyectos KeepCoding - Web 18**  
 Consulta la lista completa de repositorios y descripciones en 📁 [repos-kc-web-18.md](https://github.com/pablo-sch/pablo-sch/blob/main/docs/repos-kc-web-18.md)
@@ -12,96 +12,59 @@ Consulta la lista completa de repositorios y descripciones en 📁 [repos-kc-web
 
 ## Objetivo del Proyecto
 
-Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases virtuales, este proyecto tiene como objetivo profundizar en las capacidades del proyecto previamente realizado [keepcoding-05-frontend-javascript](https://github.com/pablo-sch/keepcoding-04-node-backend.git). En esta ocasión, se incorporarán funcionalidades como la internacionalización, la creación de un producto con imagen y la integración de una API REST. Además, como objetivo complementario, se implementará un servicio para la generación de miniaturas (thumbnails) en segundo plano.
+Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases virtuales, este proyecto tiene como objetivo profundizar en las capacidades del proyecto previamente realizado [keepcoding-04-node-backend](https://github.com/pablo-sch/keepcoding-04-node-backend.git). En esta ocasión, se incorporarán funcionalidades como la internacionalización, la creación de un producto con imagen y la integración de una API REST. Además, como objetivo complementario, se implementará un servicio para la generación de miniaturas (thumbnails) en segundo plano.
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
 ## Conocimientos Aprendidos y Trabajados
 
-- Herramientas y desarrollo
+### Herramientas y Desarrollo
 
-  - Utilización del Debugger de VSCode
-  - Debugging en entornos IDE
-  - Comandos personalizados en NPM (definidos en package.json, sección scripts)
-  - Cluster en Node.js
+- Uso del debugger en VSCode y entornos IDE.
+- Comandos personalizados con NPM.
+- Manejo de clústeres en Node.js.
 
-- Subida de archivos
+### Subida de Archivos
 
-  - Subida de imágenes utilizando multer
+- Gestión de imágenes con `multer`.
 
-- Internacionalización y localización
+### Internacionalización (i18n)
 
-  - Lectura del idioma preferido desde la cabecera “Accept-Language” en peticiones HTTP
-  - Si no se envía esta cabecera, devolver el idioma por defecto
-  - Alternativas como la geolocalización por IP (por ejemplo, si la IP es de España, redirigir al sitio en español)
-  - La librería i18n-node gestiona esto automáticamente
+- Detección del idioma desde la cabecera `Accept-Language`.
+- Idioma por defecto y geolocalización opcional.
+- Uso de la librería `i18n-node`.
 
-- API
+### API REST
 
-  - Documentación de API
+- Métodos HTTP: GET, POST, PUT, DELETE, PATCH.
+- Respuestas y errores en formato JSON.
+- Documentación con Swagger/OpenAPI.
+- Autenticación con API Key y JWT.
+- Prácticas idempotentes y estructura segura.
 
-    - Swagger
-      - Especificación, editor y visor de documentación
-    - OpenAPI en Express
-      - Generación de especificación desde código o archivos YAML
+### Tareas en Segundo Plano
 
-  - Métodos HTTP
+- Envío y programación de correos.
+- Uso de colas (RabbitMQ) para tareas en background.
 
-    - GET: obtener datos. Es idempotente (ej. listas)
-    - POST: crear un recurso (ej. un usuario)
-    - PUT: actualizar un recurso. Es idempotente (ej. actualizar un usuario)
-    - DELETE: eliminar un recurso. Es idempotente (ej. borrar un usuario)
-    - PATCH: actualización parcial de un recurso  
-      _Idempotente: si se ejecuta varias veces, el resultado no cambia_
+### WebSockets
 
-  - Formato de respuesta
+- Comunicación en tiempo real.
 
-    - Las respuestas deben ir en formato JSON
-    - Los errores también deben devolverse en formato JSON
+### Microservicios
 
-  - Autenticación
+- Comparativa con monolitos.
+- API Gateway y JWT para microservicios.
+- Arquitectura basada en eventos.
 
-    - API Key
-      - Se envía en todas las peticiones como cabecera o parámetro GET
-      - Se proporciona tras el registro del usuario
-      - Es única, identifica al usuario y no cambia
-    - Tokens JWT (JSON Web Tokens)
-      - Estructura de un JWT
-      - Ventajas de utilizar JWT
+### Seguridad y Arquitectura
 
-  - Tareas en segundo plano
+- Configuración de HTTPS en local.
 
-    - Flujo básico de una petición HTTP
-    - Envío de correos desde el back-end
-    - Envío programado de correos
-    - Envío de correos con tareas en background
-    - Tareas en background con RabbitMQ
-    - Otros motores para tareas en background
+### Buenas Prácticas
 
-  - WebSockets
-
-- Microservicios
-
-  - Diferencias con una aplicación monolítica
-  - Pros y contras de los microservicios
-  - Del monolito a los microservicios
-  - Cliente-servidor con monolito
-  - Conexión directa a microservicios con JWT
-  - API Gateway
-  - Arquitectura basada en eventos
-  - Enfoque Monolith First
-
-- Seguridad y arquitectura
-
-  - HTTPS en entorno local
-
-- Buenas prácticas
-
-  - Buenas prácticas en Node.js
-  - Buenas prácticas en diseño de APIs
-
-- Desarrollo guiado por pruebas
-  - ¿Qué es TDD? (Test-Driven Development)
+- Diseño de APIs y desarrollo en Node.js.
+- Enfoque TDD (Test-Driven Development).
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -130,7 +93,7 @@ Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases v
   - **GET /api/products**: Devuelve una lista de productos con filtros (por nombre, etc.), paginación, ordenación y selección de campos. Solo devuelve productos del usuario autenticado.
   - **GET /api/products/{productID}**: Devuelve un producto específico.
   - **POST /api/products**: Crea un producto, incluyendo subida de imagen.
-  - **PUT /api/products/{productID}>**: Actualiza un producto existente.
+  - **PUT /api/products/{productID}**: Actualiza un producto existente.
   - **DELETE /api/products/{productID}**: Elimina un producto.
 - Documentación mínima del API debe incluirse en el `README.md`. Quien lo desee puede usar Swagger (OpenAPI) en Express.
 - El API debe tener al menos dos usuarios por defecto:
@@ -155,8 +118,8 @@ Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases v
 ## Tecnologías Utilizadas
 
 **Lenguajes:** EJS, CSS, JavaScript.
-**Dependencias (Node.js):** swagger, express, socket.io, ejs, http-errors, basic-auth, i18n, cookie-parser, nodemon.
-**Framework:** Boostrap.
+**Dependencias a destacar (Node.js):** swagger, express, socket.io, ejs, http-errors, basic-auth, i18n, cookie-parser, nodemon.
+**Framework:** Bootstrap.
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -171,7 +134,7 @@ Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases v
 
 ### Clonación del Repositorio
 
-Poyecto
+Proyecto
 
 ```bash
 
@@ -223,33 +186,7 @@ Puedes consultar la documentación completa de la API en el siguiente enlace:
 
 ## Vista Previa del Proyecto
 
-### Home
-
-![Home]()
-
-### Index with No logged User
-
-![Index with No logged User](../etc/preview_images/index.png)
-
-### Login
-
-![Login](../etc/preview_images/login.png)
-
-### Create Account
-
-![Create Account](../etc/preview_images/create-account.png)
-
-### My Posts
-
-![My Posts](../etc/preview_images/my-posts.png)
-
-### Edits my Posts
-
-![Edits my Posts](../etc/preview_images/edit-post.png)
-
-### Swagger API
-
-![Swagger API](../etc/preview_images/swagger.png)
+[Vista Previa del Proyecto](demo.md)
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
