@@ -2,7 +2,7 @@
 
 `>` **Proyectos KeepCoding - Web 18:** 📁 [repos-kc-web-18.md](https://github.com/pablo-sch/pablo-sch/blob/main/docs/repos-kc-web-18.md)
 
-`>`**Selecciona tu Idioma:** [Inglés](README.md) 🔄 [Alemán](README.de.md)
+`>` **Selecciona tu Idioma:** [Inglés](README.md) 🔄 [Alemán](README.de.md)
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -116,7 +116,6 @@ Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases v
 ### 2. Clonación del Repositorio
 
 ```bash
-
 git clone https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
 ```
 
@@ -139,7 +138,7 @@ Luego, sigue estos pasos:
    npm run initDB
    ```
 
-3. Copia el archivo de variables de entorno:
+3. Copia el archivo de variables de entorno (Windows, Linux y Mac):
 
    ```sh
    cp .env.example .env

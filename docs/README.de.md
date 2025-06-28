@@ -138,7 +138,7 @@ Stellen Sie sicher, dass MongoDB läuft und Sie das Repository lokal geklont hab
    npm run initDB
    ```
 
-3. Kopieren Sie die Datei mit den Umgebungsvariablen:
+3. Kopieren Sie die Datei mit den Umgebungsvariablen (Windows, Linux und Mac):
 
    ```sh
    cp .env.example .env

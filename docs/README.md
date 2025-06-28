@@ -139,7 +139,7 @@ Make sure MongoDB is running and you have cloned the repository locally. Then, f
    npm run initDB
    ```
 
-3. Copy the environment variables file:
+3. Copy the environment variables file (Windows, Linux and Mac):
 
    ```sh
    cp .env.example .env
