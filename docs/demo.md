@@ -1,4 +1,6 @@
-# Demo
+# Preview
+
+`>` [◀️ **Go Back**](README.md)
 
 ## Home
 
@@ -6,7 +8,7 @@
 
 ## Index with No logged User
 
-![Index with No logged User](../etc/preview_images/index.png)
+![Index with No logged User](../etc/preview_images/index-no-user.png.png)
 
 ## Login
 
@@ -20,9 +22,9 @@
 
 ![My Posts](../etc/preview_images/my-posts.png)
 
-## Edits my Posts
+## Edit my Posts
 
-![Edits my Posts](../etc/preview_images/edit-post.png)
+![Edit my Posts](../etc/preview_images/edit-post.png)
 
 ## Swagger API
 
