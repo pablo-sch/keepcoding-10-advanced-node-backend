@@ -72,54 +72,39 @@ Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases v
 
 ### 1. Internacionalización
 
-- El objetivo de este reto es convertir el sitio web de la aplicación Nodepop en multi-idioma.
-- Idiomas disponibles:
-  - **Español**
-  - **Inglés**
-- No es necesario internacionalizar el API.
-- Debe existir un selector de idioma que permita al usuario cambiar entre inglés y español.
+- Convertir la web de Nodepop en multi-idioma (español e inglés).
+- Selector de idioma para cambiar entre ambos.
+- No es necesario internacionalizar la API.
 
-### 2. Creación de un Producto con Imagen
+### 2. Creación de Producto con Imagen
 
-- El sitio web debe incluir:
-  - Un enlace en el menú para acceder a la pantalla de creación de productos.
-  - Una página para crear productos, que permita subir una imagen.
-- Al crear un producto, se debe permitir adjuntar una imagen desde el formulario.
+- Añadir enlace y página para crear productos con formulario que permita subir imagen.
+- La imagen debe guardarse y asociarse al producto.
 
 ### 3. API REST
 
-- Se debe desarrollar una API con los siguientes _endpoints_:
-  - **POST /api/login**: Permite iniciar sesión y retorna un JWT.
-  - **GET /api/products**: Devuelve una lista de productos con filtros (por nombre, etc.), paginación, ordenación y selección de campos. Solo devuelve productos del usuario autenticado.
-  - **GET /api/products/{productID}**: Devuelve un producto específico.
-  - **POST /api/products**: Crea un producto, incluyendo subida de imagen.
-  - **PUT /api/products/{productID}**: Actualiza un producto existente.
-  - **DELETE /api/products/{productID}**: Elimina un producto.
-- Documentación mínima del API debe incluirse en el `README.md`. Quien lo desee puede usar Swagger (OpenAPI) en Express.
-- El API debe tener al menos dos usuarios por defecto:
-  - `admin@example.com`, clave `1234`
-  - `user1@example.com`, clave `1234`
+- Endpoints clave:
+  - POST /api/login (login y JWT)
+  - GET /api/products (lista con filtros, paginación y usuario autenticado)
+  - GET /api/products/{id} (producto específico)
+  - POST /api/products (crear producto con imagen)
+  - PUT /api/products/{id} (actualizar)
+  - DELETE /api/products/{id} (eliminar)
+- Documentación mínima en README (opcional Swagger).
+- Usuarios por defecto: admin@example.com y user1@example.com (clave: 1234).
 
 ### 4. Objetivos Opcionales
 
-- Servicio de Creación de Thumbnails
-  - Cada imagen subida debe generar un thumbnail (miniatura) de 100x100 píxeles.
-  - Se propone desarrollar un microservicio de generación de thumbnails en segundo plano, utilizando **cote.js** o **RabbitMQ**.
-  - Flujo sugerido:
-  - Al crear un nuevo producto, se envía un mensaje con la ruta de la imagen.
-  - Un _worker_ escucha este mensaje y genera el thumbnail.
-  - Se recomienda buscar librerías como **jimp** para realizar el redimensionado.
-- Crear un Módulo Público
-  - Como reto final crear y publicar un módulo en npm con alguna utilidad que pueda ser de interés personal o general. Por ejemplo: `Dhrase`, `RabinstonWabbit`, `Imandom`, `Frine` o `HipoTalculator`.
-  - Se debe colocar la URL del módulo publicado en npm al inicio del `README.md` del repositorio entregado.
+- Servicio en segundo plano para crear thumbnails 100x100 con cote.js o RabbitMQ.
+- Crear y publicar un módulo npm útil y agregar la URL en el README.
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
 ## Tecnologías Utilizadas
 
-**Lenguajes:** EJS, CSS, JavaScript.
-**Dependencias a destacar (Node.js):** swagger, express, socket.io, ejs, http-errors, basic-auth, i18n, cookie-parser, nodemon.
-**Framework:** Bootstrap.
+- **Lenguajes:** EJS, CSS, JavaScript.
+- **Dependencias a destacar (Node.js):** swagger, express, socket.io, ejs, http-errors, basic-auth, i18n, cookie-parser, nodemon.
+- **Framework:** Bootstrap.
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -138,7 +123,7 @@ Proyecto
 
 ```bash
 
-git clone https://github.com/pablo-sch/keepcoding-05-frontend-javascript.git
+git clone https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
 ```
 
 Demo
@@ -178,15 +163,13 @@ npm run dev
 
 ## Documentación de la API
 
-Puedes consultar la documentación completa de la API en el siguiente enlace:
-
-[Documentación API](API-DOC.md)
+📁 [Documentación API](API-DOC.md)
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
 ## Vista Previa del Proyecto
 
-[Vista Previa del Proyecto](demo.md)
+📁 [Vista Previa del Proyecto](demo.md)
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
