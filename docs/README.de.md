@@ -2,7 +2,7 @@
 
 `>` **KeepCoding Projekte - Web 18:** 📁 [repos-kc-web-18.md](https://github.com/pablo-sch/pablo-sch/blob/main/docs/repos-kc-web-18.md)
 
-`>` **Wähle deine Sprache:** [Englisch](README.md) 🔄 [Deutsch](README.de.md)
+`>` **Wähle deine Sprache:** [Englisch](README.md) 🔄 [Spanish](README.es.md)
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -126,13 +126,31 @@ https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
 
 Stellen Sie sicher, dass MongoDB läuft und Sie das Repository lokal geklont haben. Folgen Sie dann diesen Schritten:
 
-1. Initialisieren Sie die Datenbank (nur beim ersten Deployment notwendig).
+1. Installieren Sie die Projektabhängigkeiten:
 
-2. Kopieren Sie die Umgebungsvariablendatei.
+   ```sh
+   npm install
+   ```
 
-3. Starten Sie das Projekt im Entwicklungsmodus.
+2. Initialisieren Sie die Datenbank (nur bei der ersten Bereitstellung erforderlich):
 
-<!-- ------------------------------------------------------------------------------------------- -->
+   ```sh
+   npm run initDB
+   ```
+
+3. Kopieren Sie die Datei mit den Umgebungsvariablen:
+
+   ```sh
+   cp .env.example .env
+   ```
+
+4. Führen Sie das Projekt im Entwicklungsmodus aus:
+
+   ```sh
+   npm run dev
+   ```
+
+   <!-- ------------------------------------------------------------------------------------------- -->
 
 ## Projektressourcen
 
