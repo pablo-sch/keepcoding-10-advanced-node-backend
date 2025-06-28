@@ -1,7 +1,6 @@
 # Entrega Proyecto de Backend Avanzado con Node.js
 
-**Proyectos KeepCoding - Web 18**  
-Consulta la lista completa de repositorios y descripciones en 📁 [repos-kc-web-18.md](https://github.com/pablo-sch/pablo-sch/blob/main/docs/repos-kc-web-18.md)
+**Proyectos KeepCoding - Web 18** --> 📁 [repos-kc-web-18.md](https://github.com/pablo-sch/pablo-sch/blob/main/docs/repos-kc-web-18.md)
 
 ## Selecciona tu Idioma
 
@@ -18,85 +17,85 @@ Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases v
 
 ## Conocimientos Aprendidos y Trabajados
 
-### Herramientas y Desarrollo
+- Herramientas y Desarrollo
 
-- Uso del debugger en VSCode y entornos IDE.
-- Comandos personalizados con NPM.
-- Manejo de clústeres en Node.js.
+  - Uso del debugger en VSCode y entornos IDE.
+  - Comandos personalizados con NPM.
+  - Manejo de clústeres en Node.js.
 
-### Subida de Archivos
+- Subida de Archivos
 
-- Gestión de imágenes con `multer`.
+  - Gestión de imágenes con `multer`.
 
-### Internacionalización (i18n)
+- Internacionalización (i18n)
 
-- Detección del idioma desde la cabecera `Accept-Language`.
-- Idioma por defecto y geolocalización opcional.
-- Uso de la librería `i18n-node`.
+  - Detección del idioma desde la cabecera `Accept-Language`.
+  - Idioma por defecto y geolocalización opcional.
+  - Uso de la librería `i18n-node`.
 
-### API REST
+- API REST
 
-- Métodos HTTP: GET, POST, PUT, DELETE, PATCH.
-- Respuestas y errores en formato JSON.
-- Documentación con Swagger/OpenAPI.
-- Autenticación con API Key y JWT.
-- Prácticas idempotentes y estructura segura.
+  - Métodos HTTP: GET, POST, PUT, DELETE, PATCH.
+  - Respuestas y errores en formato JSON.
+  - Documentación con Swagger/OpenAPI.
+  - Autenticación con API Key y JWT.
+  - Prácticas idempotentes y estructura segura.
 
-### Tareas en Segundo Plano
+- Tareas en Segundo Plano
 
-- Envío y programación de correos.
-- Uso de colas (RabbitMQ) para tareas en background.
+  - Envío y programación de correos.
+  - Uso de colas (RabbitMQ) para tareas en background.
 
-### WebSockets
+- WebSockets
 
-- Comunicación en tiempo real.
+  - Comunicación en tiempo real.
 
-### Microservicios
+- Microservicios
 
-- Comparativa con monolitos.
-- API Gateway y JWT para microservicios.
-- Arquitectura basada en eventos.
+  - Comparativa con monolitos.
+  - API Gateway y JWT para microservicios.
+  - Arquitectura basada en eventos.
 
-### Seguridad y Arquitectura
+- Seguridad y Arquitectura
 
-- Configuración de HTTPS en local.
+  - Configuración de HTTPS en local.
 
-### Buenas Prácticas
+- Buenas Prácticas
 
-- Diseño de APIs y desarrollo en Node.js.
-- Enfoque TDD (Test-Driven Development).
+  - Diseño de APIs y desarrollo en Node.js.
+  - Enfoque TDD (Test-Driven Development).
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
 ## Detalles del Proyecto
 
-### 1. Internacionalización
+- Internacionalización
 
-- Convertir la web de Nodepop en multi-idioma (español e inglés).
-- Selector de idioma para cambiar entre ambos.
-- No es necesario internacionalizar la API.
+  - Convertir la web de Nodepop en multi-idioma (español e inglés).
+  - Selector de idioma para cambiar entre ambos.
+  - No es necesario internacionalizar la API.
 
-### 2. Creación de Producto con Imagen
+- Creación de Producto con Imagen
 
-- Añadir enlace y página para crear productos con formulario que permita subir imagen.
-- La imagen debe guardarse y asociarse al producto.
+  - Añadir enlace y página para crear productos con formulario que permita subir imagen.
+  - La imagen debe guardarse y asociarse al producto.
 
-### 3. API REST
+- API REST
 
-- Endpoints clave:
+  - Endpoints clave:
   - POST /api/login (login y JWT)
   - GET /api/products (lista con filtros, paginación y usuario autenticado)
   - GET /api/products/{id} (producto específico)
   - POST /api/products (crear producto con imagen)
   - PUT /api/products/{id} (actualizar)
   - DELETE /api/products/{id} (eliminar)
-- Documentación mínima en README (opcional Swagger).
-- Usuarios por defecto: admin@example.com y user1@example.com (clave: 1234).
+  - Documentación mínima en README (opcional Swagger).
+  - Usuarios por defecto: admin@example.com y user1@example.com (clave: 1234).
 
-### 4. Objetivos Opcionales
+- Objetivos Opcionales
 
-- Servicio en segundo plano para crear thumbnails 100x100 con cote.js o RabbitMQ.
-- Crear y publicar un módulo npm útil y agregar la URL en el README.
+  - Servicio en segundo plano para crear thumbnails 100x100 con cote.js o RabbitMQ.
+  - Crear y publicar un módulo npm útil y agregar la URL en el README.
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -110,27 +109,23 @@ Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases v
 
 ## Instrucciones de Instalación y Uso
 
-### Requisitos de Software
+### 1. Requisitos de Software
 
 - **[Git](https://git-scm.com/downloads)** (testeado en la versión **2.47.1.windows.1**)
 - **[Visual Studio Code](https://code.visualstudio.com/)** (testeado en la versión **1.99.0**)
-- **[MongoDB](https://www.mongodb.com/try/download/community)** (probado en la versión 8.0.5)
-- **[NoSQLBooster for MongoDB](https://nosqlbooster.com/downloads)** (probado en la versión 9.1.5)
+- **[MongoDB](https://www.mongodb.com/try/download/community)** (probado en la versión **8.0.5**)
+- **[NoSQLBooster for MongoDB](https://nosqlbooster.com/downloads)** (probado en la versión **9.1.5**)
 
-### Clonación del Repositorio
-
-Proyecto
+### 2. Clonación del Repositorio
 
 ```bash
 
 git clone https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
 ```
 
-Demo
+Ver Demo de Clonanción en VSCode: 📁 [Demo del Proyecto](https://github.com/pablo-sch/pablo-sch/blob/main/etc/clone-tutorial.gif)
 
-![Demo](https://github.com/pablo-sch/pablo-sch/blob/main/etc/clone-tutorial.gif)
-
-### Pasos Para Utilizar Este Proyecto
+### 3. Pasos Para Utilizar Este Proyecto
 
 Asegúrate de tener MongoDB en funcionamiento y haber clonado el repositorio en tu dispositivo local.
 Luego, sigue estos pasos:
