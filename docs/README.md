@@ -133,11 +133,12 @@ Make sure MongoDB is running and you have cloned the repository locally. Then, f
    npm install
    ```
 
-2. Initializes the database (only necessary for the first deployment):
-   Two Users will be created by which you will be able to log in:
+2. Initializes the database (only necessary for the first deployment).
 
-   - `admin@example.com`, password 1234 (will own no posts).
-   - `user1@example.com`, password 1234 (will own six posts).
+   - Two Users will be created by which you will be able to log in:
+
+     - `admin@example.com`, password 1234 (will own no posts).
+     - `user1@example.com`, password 1234 (will own six posts).
 
    ```sh
    npm run initDB

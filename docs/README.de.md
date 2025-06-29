@@ -132,11 +132,12 @@ Stellen Sie sicher, dass MongoDB läuft und Sie das Repository lokal geklont hab
    npm install
    ```
 
-2. Initialisieren Sie die Datenbank (nur bei der ersten Bereitstellung erforderlich):
-   Es werden zwei Benutzer angelegt, mit denen Sie sich anmelden können:
+2. Initialisieren Sie die Datenbank (nur bei der ersten Bereitstellung erforderlich).
 
-   - `admin@example.com`, Passwort 1234 (wird keine Beiträge haben).
-   - `user1@example.com`, Passwort 1234 (wird sechs Beiträge haben).
+   - Es werden zwei Benutzer angelegt, mit denen Sie sich anmelden können:
+
+     - `admin@example.com`, Passwort 1234 (wird keine Beiträge haben).
+     - `user1@example.com`, Passwort 1234 (wird sechs Beiträge haben).
 
    ```sh
    npm run initDB

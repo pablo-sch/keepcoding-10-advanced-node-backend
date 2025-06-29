@@ -132,11 +132,12 @@ Luego, sigue estos pasos:
    npm install
    ```
 
-2. Inicializa la base de datos (solo necesario en el primer despliegue):
-   Se crearan dos Usuarios por el cual podras iniciar sesión:
+2. Inicializa la base de datos (solo necesario en el primer despliegue).
 
-   - `admin@example.com`, clave 1234 (no poseerá ningún post).
-   - `user1@example.com`, clave 1234 (poseerá seis posts).
+   - Se crearan dos Usuarios por el cual podras iniciar sesión:
+
+     - `admin@example.com`, clave 1234 (no poseerá ningún post).
+     - `user1@example.com`, clave 1234 (poseerá seis posts).
 
    ```sh
    npm run initDB

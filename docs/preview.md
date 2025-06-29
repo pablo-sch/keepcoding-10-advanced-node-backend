@@ -8,7 +8,7 @@
 
 ## Index with No logged User
 
-![Index with No logged User](../etc/preview_images/index-no-user.png.png)
+![Index with No logged User](../etc/preview_images/index-no-user.png.)
 
 ## Login
 
