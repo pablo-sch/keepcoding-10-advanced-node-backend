@@ -1,7 +1,11 @@
 <%- include('header.ejs') %>
-<h1>Error Status: <%= status %></h1>
-<h2>Error Message: <%= message %></h2>
-
-<a href="/">Volver al inicio</a>
+<div class="container mt-5">
+  <div class="alert alert-danger text-center" role="alert">
+    <h1 class="display-4">Error <%= status %></h1>
+    <p class="lead"><%= message %></p>
+    <hr />
+    <a href="/" class="btn btn-primary mt-3"><%= __('Back to Home') %></a>
+  </div>
+</div>
 
 <%- include('footer.ejs') %>

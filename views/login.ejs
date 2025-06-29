@@ -2,6 +2,7 @@
 
 <div class="container">
   <h2><%= __('Login')%></h2>
+
   <div class="custom-section form-template">
     <form method="post">
       <div class="form-group">
@@ -28,6 +29,10 @@
       </div>
 
       <button type="submit" class="btn btn-primary"><%= __('Login')%></button>
+
+      <% if (error) { %>
+      <div class="alert alert-danger mt-3" role="alert"><%= __(error) %></div>
+      <% } %>
     </form>
   </div>
 </div>

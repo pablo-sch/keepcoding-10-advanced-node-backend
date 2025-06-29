@@ -133,6 +133,10 @@ Luego, sigue estos pasos:
    ```
 
 2. Inicializa la base de datos (solo necesario en el primer despliegue):
+   Se crearan dos Usuarios por el cual podras iniciar sesión:
+
+   - `admin@example.com`, clave 1234 (no poseerá ningún post).
+   - `user1@example.com`, clave 1234 (poseerá seis posts).
 
    ```sh
    npm run initDB
@@ -156,7 +160,7 @@ Luego, sigue estos pasos:
 
 `>` **Documentación de la API:** 📄 [Documentación](api-doc.md)
 
-`>` **Vista Previa del Proyecto:** 👀 [Vista Previa](demo.md)
+`>` **Vista Previa del Proyecto:** 👀 [Vista Previa](preview.md)
 
 <!-- ------------------------------------------------------------------------------------------- -->
 

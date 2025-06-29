@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import createError from "http-errors";
 import path from "path";
 import { fileURLToPath } from "url";
+import mongoose from "mongoose";
 
 import Post from "../../models/Post.js";
 import { io } from "../../webSocketServer.js";
@@ -98,6 +99,7 @@ export async function listPosts(req, res, next) {
 }
 
 //UPDATE-POST===========================================================================================
+//UPDATE-POST===========================================================================================
 export async function editPost(req, res, next) {
   try {
     const userId = req.session.user.id;
@@ -109,17 +111,14 @@ export async function editPost(req, res, next) {
       return next(createError(404, `Post with ID ${postId} not found for user ${userId}`));
     }
 
-    const { name, price, tag } = req.body;
+    const { name, price, tag, existingPhoto } = req.body;
 
-    // If a new image is uploaded
+    // Si se sube una nueva imagen
     if (req.file) {
       const oldPhoto = post.photo;
-
-      // We save the new image
       const newPhoto = req.file.filename;
       post.photo = newPhoto;
 
-      // If the above image is not the placeholder, delete it
       if (oldPhoto && oldPhoto !== "placeholder-image.jpg") {
         const imagePath = path.resolve("public", "photos", oldPhoto);
         try {
@@ -129,6 +128,9 @@ export async function editPost(req, res, next) {
           console.warn("Failed to delete old image:", err.message);
         }
       }
+    } else {
+      // No se subió una imagen nueva → mantener la existente
+      post.photo = existingPhoto;
     }
 
     post.name = name;
@@ -149,10 +151,14 @@ export async function getPostDetail(req, res, next) {
     const postId = req.params.postId;
     const userId = req.session.user.id;
 
+    if (!mongoose.Types.ObjectId.isValid(postId)) {
+      return next(createError(404, "Post not found or not authorized"));
+    }
+
     const postData = await Post.findOne({ _id: postId, owner: userId }).populate("owner", "name");
 
     if (!postData) {
-      return res.status(404).send("Post not found or not authorized");
+      return next(createError(404, "Post not found or not authorized"));
     }
 
     res.render("post-detail", { post: postData, user: req.session.user });

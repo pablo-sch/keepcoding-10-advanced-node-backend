@@ -44,5 +44,11 @@
 	"Create your first post": "Crea tu primer Post",
 	"Search": "Search",
 	"Swagger Doc": "Swagger Doc",
-	"Swagger": "Swagger"
+	"Swagger": "Swagger",
+	"Back to Home": "Volver al Inicio",
+	"Name is required and must not exceed 120 characters.": "Name is required and must not exceed 120 characters.",
+	"Price is required, must be a number, less than or equal to 10,000,000, and cannot contain letters like e or E.": "Price is required, must be a number, less than or equal to 10,000,000, and cannot contain letters like e or E.",
+	"Invalid credentials": "Credenciales no válidas",
+	"Email not found": "Email not found",
+	"Please fill in all fields": "Please fill in all fields"
 }

@@ -1,6 +1,6 @@
 # NodePop API
 
-`>` [◀️ **Go Back**](README.md)
+[◀️ **Go Back**](README.md)
 
 ## Note
 

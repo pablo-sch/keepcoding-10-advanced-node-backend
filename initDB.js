@@ -92,9 +92,6 @@ async function initUsers() {
   const avatarSource = path.join(__dirname, "data", "avatar", "default-avatar.png");
   const avatarDestDir = path.join(__dirname, "public", "avatars");
 
-  /* const avatarSource = path.join(import.meta.url, "data", "avatar", "default-avatar.png");
-  const avatarDestDir = path.join(import.meta.url, "public", "avatars"); */
-
   await fs.mkdir(avatarDestDir, { recursive: true });
 
   try {
@@ -110,9 +107,14 @@ async function initUsers() {
   const result = await User.deleteMany();
   console.log(`Deleted ${result.deletedCount} users.`);
 
-  const usersToInsert = [];
+  const users = [];
 
-  for (let i = 1; i <= 6; i++) {
+  const predefinedUsers = [
+    { name: "Admin Datamin", email: "admin@example.com" },
+    { name: "Pedro Pereira", email: "user1@example.com" },
+  ];
+
+  for (const user of predefinedUsers) {
     const ext = path.extname(avatarSource);
     const avatarFilename = `${Date.now()}-${randomUUID()}${ext}`;
     const avatarDestPath = path.join(avatarDestDir, avatarFilename);
@@ -125,24 +127,17 @@ async function initUsers() {
       continue;
     }
 
-    usersToInsert.push({
-      name: chance.name(),
-      email: `user_n_${i}@gmail.com`,
+    users.push({
+      name: user.name,
+      email: user.email,
       password: await User.hashPassword("1234"),
       avatar: avatarFilename,
     });
   }
 
-  if (usersToInsert.length === 0) {
-    throw new Error("No users inserted: failed to copy avatars.");
-  }
-
-  const insertResult = await User.insertMany(usersToInsert);
+  const insertResult = await User.insertMany(users);
   console.log(`Inserted ${insertResult.length} users.`);
-
-  return result;
 }
-
 //initposts===============================================================
 async function initposts() {
   const __filename = fileURLToPath(import.meta.url);
@@ -166,48 +161,18 @@ async function initposts() {
     console.error("Error cleaning photos directory:", err);
   }
 
-  const users = await User.find();
+  const user1 = await User.findOne({ email: "user1@example.com" });
 
   const result = await Post.deleteMany();
   console.log(`Deleted ${result.deletedCount} posts.`);
 
   const postTemplates = [
-    {
-      name: "CellPhone",
-      price: 20000,
-      photo: "cellphone.jpg",
-      tag: "mobile",
-      owner: users[0]._id,
-    },
-    { name: "Chair", price: 30000, photo: "chair.jpg", tag: "lifestyle", owner: users[1]._id },
-    {
-      name: "Drawer",
-      price: chance.integer({ min: 1, max: 999999 }),
-      photo: "drawer.jpg",
-      tag: "lifestyle",
-      owner: users[2]._id,
-    },
-    {
-      name: "Electric Saw",
-      price: chance.integer({ min: 1, max: 999999 }),
-      photo: "electric_saw.jpg",
-      tag: "motor",
-      owner: users[3]._id,
-    },
-    {
-      name: "Monitor",
-      price: chance.integer({ min: 1, max: 999999 }),
-      photo: "monitor.jpg",
-      tag: "work",
-      owner: users[4]._id,
-    },
-    {
-      name: "Table",
-      price: chance.integer({ min: 1, max: 999999 }),
-      photo: "table.jpg",
-      tag: "lifestyle",
-      owner: users[5]._id,
-    },
+    { name: "CellPhone", price: 20000, photo: "cellphone.jpg", tag: "mobile" },
+    { name: "Chair", price: 30000, photo: "chair.jpg", tag: "lifestyle" },
+    { name: "Drawer", price: chance.integer({ min: 1, max: 999999 }), photo: "drawer.jpg", tag: "lifestyle" },
+    { name: "Electric Saw", price: chance.integer({ min: 1, max: 999999 }), photo: "electric_saw.jpg", tag: "motor" },
+    { name: "Monitor", price: chance.integer({ min: 1, max: 999999 }), photo: "monitor.jpg", tag: "work" },
+    { name: "Table", price: chance.integer({ min: 1, max: 999999 }), photo: "table.jpg", tag: "lifestyle" },
   ];
 
   const postsToInsert = [];
@@ -234,7 +199,7 @@ async function initposts() {
       price: template.price,
       photo: newFileName,
       tag: template.tag,
-      owner: template.owner,
+      owner: user1._id,
     });
   }
   //-----------------------------------------------------------

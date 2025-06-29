@@ -29,27 +29,35 @@
           method="POST"
           enctype="multipart/form-data"
         >
-          <div class="form-group mb-3">
-            <label><%= __('Name') %></label>
-            <input
-              type="text"
-              name="name"
-              class="form-control"
-              value="<%= post.name %>"
-              placeholder="<%= __('Enter post Name') %>"
-            />
-          </div>
+          <div class="form-group">
+        <label for="name"><%= __('Name') %></label>
+        <input
+          type="text"
+          name="name"
+          class="form-control"
+          id="name"
+          placeholder="<%= __('Enter post Name') %>"
+          maxlength="120"
+          required
+          value="<%= post.name %>"
+        />
+      </div>
 
-          <div class="form-group mb-3">
-            <label><%= __('Price') %></label>
-            <input
-              type="text"
-              name="price"
-              class="form-control"
-              value="<%= post.price %>"
-              placeholder="<%= __('Enter post Price') %>"
-            />
-          </div>
+      <div class="form-group">
+        <label for="price"><%= __('Price') %></label>
+        <input
+          type="number"
+          name="price"
+          class="form-control"
+          id="price"
+          placeholder="<%= __('Enter post Price') %>"
+          min="0"
+          max="10000000"
+          step="any"
+          required
+          value="<%= post.price %>"
+        />
+      </div>
 
           <div class="form-group mb-3">
             <label for="tag"><%= __('Tag') %></label>
@@ -72,10 +80,11 @@
               accept="image/*"
               onchange="previewSelectedImage(this)"
             />
+            <input type="hidden" name="existingPhoto" value="<%= post.photo %>" />
           </div>
 
           <!-- Botones centrados -->
-          <div class="d-flex justify-content-center gap-3">
+          <div class="form-group d-flex justify-content-center gap-3">
             <button type="submit" class="btn btn-success px-4"><%= __('Accept') %></button>
             <a href="/my_posts" class="btn btn-warning px-4"><%= __('Cancel') %></a>
           </div>

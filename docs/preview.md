@@ -1,6 +1,6 @@
 # Preview
 
-`>` [◀️ **Go Back**](README.md)
+[◀️ **Go Back**](README.md)
 
 ## Home
 
@@ -25,6 +25,10 @@
 ## Edit my Posts
 
 ![Edit my Posts](../etc/preview_images/edit-post.png)
+
+## Error Page
+
+![Error Page](../etc/preview_images/error-page.png)
 
 ## Swagger API
 

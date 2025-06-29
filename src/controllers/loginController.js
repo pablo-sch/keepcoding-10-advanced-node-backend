@@ -16,17 +16,22 @@ export async function handleLogin(req, res, next) {
 
     const sessionId = req.session.id;
 
-    // search for the user in the database
-    const user = await User.findOne({ email: email });
-
-    if (!user || !(await user.comparePassword(password))) {
-      res.locals.error = "Invalid credentials";
-      res.locals.email = email; // with this line we will keep the email variable when reloading the page in case of a wrong input
+    if (!email || !password) {
+      res.locals.error = "Please fill in all fields";
+      res.locals.email = email || "";
       res.render("login");
       return;
     }
 
-    // the user id found in the database is assigned to the session effected by the LogIn.
+    const user = await User.findOne({ email: email });
+
+    if (!user || !(await user.comparePassword(password))) {
+      res.locals.error = "Invalid credentials";
+      res.locals.email = email;
+      res.render("login");
+      return;
+    }
+
     req.session.user = {
       id: user._id,
       name: user.name,

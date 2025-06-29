@@ -5,15 +5,33 @@
 
   <% if (!user || !user.id) { %> <%- include('not-logged-in-message.ejs') %> <% } else { %>
   <div class="add-post form-template custom-section">
-    <form id="postForm" action="/new_post" method="POST" enctype="multipart/form-data">
+    <form id="postForm" action="/new_post" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
       <div class="form-group">
         <label for="name"><%= __('Name') %></label>
-        <input type="text" name="name" class="form-control" id="name" placeholder="<%= __('Enter post Name') %>" />
+        <input
+          type="text"
+          name="name"
+          class="form-control"
+          id="name"
+          placeholder="<%= __('Enter post Name') %>"
+          maxlength="120"
+          required
+        />
       </div>
 
       <div class="form-group">
         <label for="price"><%= __('Price') %></label>
-        <input type="text" name="price" class="form-control" id="price" placeholder="<%= __('Enter post Price') %>" />
+        <input
+          type="number"
+          name="price"
+          class="form-control"
+          id="price"
+          placeholder="<%= __('Enter post Price') %>"
+          min="0"
+          max="10000000"
+          step="any"
+          required
+        />
       </div>
 
       <div class="form-group">
@@ -31,8 +49,9 @@
         <label for="customFile" class="form-label"><%= __('Photo') %></label>
         <input type="file" name="photo" class="form-control" id="customFile" />
       </div>
-
-      <button type="submit" class="btn btn-primary"><%= __('Add Post') %></button>
+      <div class="form-group d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary"><%= __('Add Post') %></button>
+      </div>
     </form>
   </div>
   <% } %>
