@@ -107,6 +107,7 @@ Um die in den Online-Kursen erworbenen Kenntnisse zu üben und zu demonstrieren,
 
 ### 1. Softwareanforderungen
 
+- **[Node.js](https://nodejs.org/en/download/)** (getestet mit Version **v22.15.1**)
 - **[Git](https://git-scm.com/downloads)** (getestet mit Version **2.47.1.windows.1**)
 - **[Visual Studio Code](https://code.visualstudio.com/)** (getestet mit Version **1.99.0**)
 - **[MongoDB](https://www.mongodb.com/try/download/community)** (getestet mit Version **8.0.5**)
@@ -117,43 +118,34 @@ Um die in den Online-Kursen erworbenen Kenntnisse zu üben und zu demonstrieren,
 Klonen Sie das Repository von:
 
 ```bash
-https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
+git clone https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
 ```
 
 `>` **Demo zum Klonen in VSCode:** 🎥 [Gif Demo](https://github.com/pablo-sch/pablo-sch/blob/main/etc/clone-tutorial.gif)
 
 ### 3. Schritte zur Nutzung des Projekts
 
-Stellen Sie sicher, dass MongoDB läuft und Sie das Repository lokal geklont haben. Folgen Sie dann diesen Schritten:
+Stellen Sie sicher, dass MongoDB läuft und Sie das Repository auf Ihr lokales Gerät geklont haben.
+Folgen Sie dann diesen Schritten:
 
-1. Installieren Sie die Projektabhängigkeiten:
+```sh
+# Installieren Sie die Abhängigkeiten des Projekts.
+npm install
 
-   ```sh
-   npm install
-   ```
+# Initialisieren Sie die Datenbank (nur für den ersten Einsatz erforderlich).
+npm run initDB
 
-2. Initialisieren Sie die Datenbank (nur bei der ersten Bereitstellung erforderlich).
+# Kopieren Sie die Umgebungsvariablendatei (Windows, Linux und Mac).
+cp .env.example .env
 
-   - Es werden zwei Benutzer angelegt, mit denen Sie sich anmelden können:
+# Starten Sie das Projekt im Entwicklungsmodus.
+npm run dev
+```
 
-     - `admin@example.com`, Passwort 1234 (wird keine Beiträge haben).
-     - `user1@example.com`, Passwort 1234 (wird sechs Beiträge haben).
+**Hinweis:** Es werden zwei Benutzer angelegt, mit denen Sie sich anmelden können:
 
-   ```sh
-   npm run initDB
-   ```
-
-3. Kopieren Sie die Datei mit den Umgebungsvariablen (Windows, Linux und Mac):
-
-   ```sh
-   cp .env.example .env
-   ```
-
-4. Führen Sie das Projekt im Entwicklungsmodus aus:
-
-   ```sh
-   npm run dev
-   ```
+- `admin@example.com`, Passwort 1234 (wird keine Beiträge haben).
+- `user1@example.com`, Passwort 1234 (wird sechs Beiträge haben).
 
    <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -167,4 +159,4 @@ Stellen Sie sicher, dass MongoDB läuft und Sie das Repository lokal geklont hab
 
 ## Beiträge und Lizenzen
 
-Dieses Projekt hat keine externen Beiträge oder Lizenzen.
+Projekt unter MIT Lizenz. Freie Nutzung und Verbreitung mit Namensnennung. Externe Beiträge werden nicht angenommen, Vorschläge sind jedoch willkommen.

@@ -36,5 +36,9 @@
   "devDependencies": {
     "globals": "^16.0.0",
     "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=22.15.1",
+    "npm": ">=11.4.0"
   }
 }

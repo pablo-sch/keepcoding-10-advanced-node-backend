@@ -107,6 +107,7 @@ In order to practice and demonstrate the knowledge acquired in the virtual class
 
 ### 1. Software Requirements
 
+- **[Node.js](https://nodejs.org/en/download/)** (tested on version **v22.15.1**)
 - **[Git](https://git-scm.com/downloads)** (tested on version **2.47.1.windows.1**)
 - **[Visual Studio Code](https://code.visualstudio.com/)** (tested on version **1.99.0**)
 - **[MongoDB](https://www.mongodb.com/try/download/community)** (tested on version **8.0.5**)
@@ -117,7 +118,7 @@ In order to practice and demonstrate the knowledge acquired in the virtual class
 Clone the repository from:
 
 ```bash
-https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
+git clone https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
 
 ```
 
@@ -125,36 +126,27 @@ https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
 
 ### 3. Steps to Use This Project
 
-Make sure MongoDB is running and you have cloned the repository locally. Then, follow these steps:
+Make sure you have MongoDB running and have cloned the repository on your local device.
+Then follow these steps:
 
-1. Install the project dependencies:
+```sh
+# Install the project's dependencies.
+npm install
 
-   ```sh
-   npm install
-   ```
+# Initialise the database (only necessary for the first deployment).
+npm run initDB
 
-2. Initializes the database (only necessary for the first deployment).
+# Copy the environment variables file (Windows, Linux and Mac).
+cp .env.example .env
 
-   - Two Users will be created by which you will be able to log in:
+# Run the project in development mode.
+npm run dev
+```
 
-     - `admin@example.com`, password 1234 (will own no posts).
-     - `user1@example.com`, password 1234 (will own six posts).
+**Note:** Two users will be created for which you will be able to log in:
 
-   ```sh
-   npm run initDB
-   ```
-
-3. Copy the environment variables file (Windows, Linux and Mac):
-
-   ```sh
-   cp .env.example .env
-   ```
-
-4. Run the project in development mode:
-
-   ```sh
-   npm run dev
-   ```
+- `admin@example.com`, password 1234 (will own no posts).
+- `user1@example.com`, password 1234 (will have six posts).
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -168,4 +160,4 @@ Make sure MongoDB is running and you have cloned the repository locally. Then, f
 
 ## Contributions and Licenses
 
-This project has no external contributions or licenses.
+Project under MIT license. Free use and distribution with attribution. External contributions not accepted, but suggestions welcome.

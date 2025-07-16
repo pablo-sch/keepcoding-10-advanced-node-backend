@@ -108,6 +108,7 @@ Con el fin de ejercitar y demostrar los conocimientos adquiridos en las clases v
 
 ### 1. Requisitos de Software
 
+- **[Node.js](https://nodejs.org/en/download/)** (testeado en la versión **v22.15.1**)
 - **[Git](https://git-scm.com/downloads)** (testeado en la versión **2.47.1.windows.1**)
 - **[Visual Studio Code](https://code.visualstudio.com/)** (testeado en la versión **1.99.0**)
 - **[MongoDB](https://www.mongodb.com/try/download/community)** (probado en la versión **8.0.5**)
@@ -121,39 +122,29 @@ git clone https://github.com/pablo-sch/keepcoding-10-advanced-node-backend.git
 
 `>` **Ver Demo de Clonanción en VSCode:** 🎥 [Gif Demo](https://github.com/pablo-sch/pablo-sch/blob/main/etc/clone-tutorial.gif)
 
-### 3. Pasos Para Utilizar Este Proyecto
+### 3. Comandos
 
 Asegúrate de tener MongoDB en funcionamiento y haber clonado el repositorio en tu dispositivo local.
 Luego, sigue estos pasos:
 
-1. Instala las dependencias del proyecto:
+```sh
+# Instala las dependencias del proyecto.
+npm install
 
-   ```sh
-   npm install
-   ```
+# Inicializa la base de datos (solo necesario en el primer despliegue).
+npm run initDB
 
-2. Inicializa la base de datos (solo necesario en el primer despliegue).
+# Copia el archivo de variables de entorno (Windows, Linux y Mac).
+cp .env.example .env
 
-   - Se crearan dos Usuarios por el cual podras iniciar sesión:
+# Ejecuta el proyecto en modo desarrollo.
+npm run dev
+```
 
-     - `admin@example.com`, clave 1234 (no poseerá ningún post).
-     - `user1@example.com`, clave 1234 (poseerá seis posts).
+**Nota:** Se crearan dos Usuarios por el cual podras iniciar sesión:
 
-   ```sh
-   npm run initDB
-   ```
-
-3. Copia el archivo de variables de entorno (Windows, Linux y Mac):
-
-   ```sh
-   cp .env.example .env
-   ```
-
-4. Ejecuta el proyecto en modo desarrollo:
-
-   ```sh
-   npm run dev
-   ```
+- `admin@example.com`, clave 1234 (no poseerá ningún post).
+- `user1@example.com`, clave 1234 (poseerá seis posts).
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -167,4 +158,4 @@ Luego, sigue estos pasos:
 
 ## Contribuciones y Licencias
 
-Este proyecto no cuenta con contribuciones externas ni licencias.
+Proyecto bajo licencia MIT. Uso y distribución libres con atribución. No se aceptan contribuciones externas, pero las sugerencias son bienvenidas.
