@@ -5,6 +5,7 @@ import { io } from "../../webSocketServer.js";
 //RENDER-LOGIN-FORM=====================================================================================
 export function renderLoginForm(req, res) {
   res.locals.email = "";
+  res.locals.error = null;
   res.render("login");
 }
 
@@ -41,8 +42,15 @@ export async function handleLogin(req, res, next) {
 
     //WEB-SOCKET******************************************
     // send an email to the user
-    /* await */ user.sendEmail("Welcome to NodePop.");
-    //await user.sendEmail("Welcome", "Welcome to NodePop.");
+    try {
+      await user.sendEmail("Welcome to NodePop.");
+    } catch (emailError) {
+      console.log("Error sending email (ignored):", emailError.message);
+    }
+
+    // Send welcome message via WebSocket
+    console.log("SOCKET.IO: Sending Welcome Message to User With SessionId", req.session.id);
+    io.to(req.session.id).emit("server-message", `welcome user ${user._id}`);
     //****************************************************
 
     console.log("EXPRESS: Connecting to NodePop with SessionId ", sessionId);

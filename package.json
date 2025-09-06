@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "keepcoding-10-advanced-node-backend",
+=======
+  "name": "nodepop",
+>>>>>>> 6a83a4a (Update environment configuration and documentation; enhance login error handling and remove unused WebSocket code)
   "version": "1.1.0",
   "private": true,
   "type": "module",

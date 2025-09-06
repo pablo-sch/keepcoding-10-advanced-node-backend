@@ -74,16 +74,6 @@ export async function listPosts(req, res, next) {
       throw new Error("No posts data found. 'posts' is undefined or null.");
     }
 
-    //WEB-SOCKET***********************************************************************
-    setTimeout(() => {
-      const userId = req.session?.user?.id;
-      if (userId) {
-        console.log("SOCKET.IO: Sending Welcome Message to User With SessionId", req.session.id);
-        io.to(req.session.id).emit("server-message", `welcome user ${userId}`);
-      }
-    }, 5000);
-    //*********************************************************************************
-
     res.render(view, {
       posts,
       query: req.query,
